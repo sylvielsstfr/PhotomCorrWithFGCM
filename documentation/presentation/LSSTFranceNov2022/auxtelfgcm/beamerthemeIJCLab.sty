@@ -1,0 +1,39 @@
+% Copyright 2022 by Sébastien Descotes-Genon
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+
+\mode<presentation>
+
+
+\usepackage[absolute,overlay]{textpos}
+\setlength{\TPHorizModule}{\paperwidth}
+ \setlength{\TPVertModule}{\TPHorizModule}
+
+
+\usecolortheme{IJCLab-inner}
+\useinnertheme{IJCLab}
+\usecolortheme{IJCLab-outer}
+\useoutertheme{IJCLab}
+
+
+% Tills' opinion: should be done in an inner theme, not here.
+
+\usesubitemizeitemtemplate{%
+    \tiny\raise1.5pt\hbox{\color{beamerstructure}$\blacktriangleright$}%
+}
+\usesubsubitemizeitemtemplate{%
+    \tiny\raise1.5pt\hbox{\color{beamerstructure}$\bigstar$}%
+}
+
+\setbeamersize{text margin left=1em,text margin right=1em}
+
+
+
+
+
+\mode
+<all>

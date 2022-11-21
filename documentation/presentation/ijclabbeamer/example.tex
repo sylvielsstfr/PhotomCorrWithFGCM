@@ -1,0 +1,131 @@
+% Copyright 2022 by Sébastien Descotes-Genon
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+
+
+\documentclass{beamer}
+
+% Setup appearance:
+
+\usetheme{IJCLab}
+
+\pgfdeclareimage[height=2cm]{LogoIJCLab}{example-fig/LogoIJCLab}
+\pgfdeclareimage[height=1.3cm]{LogoCNRS}{example-fig/LogoCNRS}
+\pgfdeclareimage[height=1cm]{LogoUPSay}{example-fig/LogoUPSay}
+
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+
+
+% Author, Title, etc.
+
+\title[Un essai]{Ma présentation}
+
+\titlegraphic{\begin{center}\qquad\pgfuseimage{LogoCNRS}\qquad\quad\qquad\quad\pgfuseimage{LogoIJCLab}\qquad\qquad\pgfuseimage{LogoUPSay}\end{center}}
+
+\author[M. Myself]{
+Me Myself-And-I}
+\institute[IJCLab]{
+  IJCLab,
+  CNRS/IN2P3 \& Université Paris-Saclay,
+  Orsay, France   }
+  
+  % Caution  : This is not the affiliation to be used to sign articles. 
+  % Please refer to the intranet : Bibliothèque/IST / Règles de publication
+     
+\date[Where, when]{
+A nice place to talk, Sometime in the future}
+
+
+% The main document with a few examples
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+\section{Première section}
+\subsection{Du texte}
+\begin{frame}{La section 1 commence}
+	Un \textbf<2,3>{texte} en gras. 
+	\visible<3>{Un texte visible ensuite avec \alert{une alerte}}
+\end{frame}
+
+\subsection{Des listes}
+\begin{frame}{Des exemples}
+	Voici une liste
+	\begin{itemize}
+	\item Un item
+	\item Un autre item
+	\end{itemize}
+	
+	et une liste numérotée
+	\begin{enumerate}
+	\item Un item
+	\item Un autre item
+	\end{enumerate}
+\end{frame}
+
+\section{Des blocs}
+\begin{frame}{Trois blocs} 
+	\begin{block}{Remarque}
+	Un bloc
+	\end{block}
+	
+	\begin{alertblock}{Proposition}
+	Un bloc alerte
+	\end{alertblock}
+	
+	\begin{exampleblock}<2>{Exemple}
+	Un bloc exemple qui apparaît ensuite.
+	\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Lorem ipsum} 
+
+Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi. Morbi auctor
+lorem non justo. Nam lacus libero, pretium at, lobortis vitae, ultricies et, tellus.
+Donec aliquet, tortor sed accumsan bibendum, erat ligula aliquet magna, vitae
+ornare odio metus a mi. Morbi ac orci et nisl hendrerit mollis. Suspendisse ut
+massa. Cras nec ante. Pellentesque a nulla. Cum sociis natoque penatibus et
+magnis dis parturient montes, nascetur ridiculus mus. Aliquam tincidunt urna.
+Nulla ullamcorper vestibulum turpis. Pellentesque cursus luctus mauris.
+
+Nulla malesuada porttitor diam. Donec felis erat, congue non, volutpat at,
+tincidunt tristique, libero. Vivamus viverra fermentum felis. Donec nonummy
+pellentesque ante. Phasellus adipiscing semper elit. Proin fermentum massa
+ac quam. Sed diam turpis, molestie vitae, placerat a, molestie nec, leo. Mae-
+cenas lacinia. Nam ipsum ligula, eleifend at, accumsan nec, suscipit a, ipsum.
+Morbi blandit ligula feugiat magna. Nunc eleifend consequat lorem. Sed lacinia
+nulla vitae enim. Pellentesque tincidunt purus vel magna. Integer non enim.
+
+
+
+
+\end{frame}
+
+\begin{frame}
+\begin{center}
+{\usebeamerfont{frametitle}
+
+\LARGE \alert{Merci pour votre attention}}
+
+\end{center}
+
+\end{frame}
+
+
+ 
+\end{document}
+
+
