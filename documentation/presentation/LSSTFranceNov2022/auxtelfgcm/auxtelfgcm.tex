@@ -53,65 +53,89 @@ Sylvie Dagoret-Campagne}
   \tableofcontents
 \end{frame}
 
-\section{Première section}
-\subsection{Du texte}
-\begin{frame}{La section 1 commence}
-	Un \textbf<2,3>{texte} en gras. 
-	\visible<3>{Un texte visible ensuite avec \alert{une alerte}}
-\end{frame}
-
-\subsection{Des listes}
-\begin{frame}{Des exemples}
-	Voici une liste
+\section{Definitions for FGCM}
+\subsection{Instrumental Flux}
+\begin{frame}{Instrumental Flux}
+\begin{alertblock}{Photometric flux of a source}
+	\begin{equation}
+	ADU_b = \frac{A\Delta T}{gh}\int_0^\infty F_\nu(\lambda) \times S_b^{obs}(\lambda,x,y,az,alt,t) \frac{d\lambda}{\lambda}
+	\end{equation}
 	\begin{itemize}
-	\item Un item
-	\item Un autre item
+	\item $ADU_b$ : ADU count of a source measured by photometry in band $b$
+	\item $F_\nu$ : SED in ${\rm erg/cm^2/Hz/s}$
+	\item $S_b^{obs}$ : Observation transmission in band $b$(atmosphere + instrument)
+	\item $A$ : Collection efficiency in ${\rm cm^2}$
+	\item $g$ : Electronic gain in ${\rm e^-/ADU}$
+	\item $\Delta T$ : Exposure time
+	\item $h$ : Planck constant
 	\end{itemize}
-	
-	et une liste numérotée
-	\begin{enumerate}
-	\item Un item
-	\item Un autre item
-	\end{enumerate}
+	\end{alertblock}	
 \end{frame}
 
-\section{Des blocs}
-\begin{frame}{Trois blocs} 
-	\begin{block}{Remarque}
-	Un bloc
+\subsection{Observed Magnitude}
+\begin{frame}{Observed Magnitude}
+\begin{alertblock}{Observed Magnitude of a source}
+	\begin{equation}
+	m^{obs}_b = -2.5 \log_{10}\left( 
+	\frac{\int_0^\infty F_\nu(\lambda) \times S_b^{obs}(\lambda,x,y,az,alt,t) \frac{d\lambda}{\lambda} }{\int_0^\infty F^{AB} \times S_b^{obs}(\lambda,x,y,az,alt,t) \frac{d\lambda}{\lambda}} 
+	\right)
+	\end{equation}
+	\begin{itemize}
+	\item $m^{obs}_b$ : observed magnitude in band $b$
+	\item $F_\nu$ : SED in ${\rm erg/cm^2/Hz/s}$
+	\item $F^{AB}=3631 Jy$ : Flat SED with $1 Jy = 1O^{-23} {\rm erg/cm^2/Hz/s}$
+	\item $S_b^{obs}$ : Observation transmission in band $b$  (atmosphere + instrument)
+	\end{itemize}
+	\end{alertblock}		
+\end{frame}
+
+
+\begin{frame}{Decomposition of observed Magnitude} 
+\begin{alertblock}{}
+	\begin{equation}
+m^{obs}_b = -2.5 \log_{10}(ADU_b)+ 2.5 \log_{10}(\Delta T) + \mathbb{I}_0	^{obs}(b) + ZPT^{AB}
+	\end{equation}	
+\end{alertblock}	
+
+	\begin{block}{}
+\begin{eqnarray}
+\mathbb{I}_0^{obs}(b) & = & \int_0^\infty S^{obs}_b(\lambda) \frac{d\lambda}{\lambda} \\
+ZPT^{AB} & = & 2.5 \log_{10} \left( \frac{A F^{AB}}{gh}\right)
+\end{eqnarray} 
 	\end{block}
-	
-	\begin{alertblock}{Proposition}
-	Un bloc alerte
-	\end{alertblock}
-	
-	\begin{exampleblock}<2>{Exemple}
-	Un bloc exemple qui apparaît ensuite.
-	\end{exampleblock}
 \end{frame}
 
-\begin{frame}{Lorem ipsum} 
+\subsection{Standard Magnitude}
 
-Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi. Morbi auctor
-lorem non justo. Nam lacus libero, pretium at, lobortis vitae, ultricies et, tellus.
-Donec aliquet, tortor sed accumsan bibendum, erat ligula aliquet magna, vitae
-ornare odio metus a mi. Morbi ac orci et nisl hendrerit mollis. Suspendisse ut
-massa. Cras nec ante. Pellentesque a nulla. Cum sociis natoque penatibus et
-magnis dis parturient montes, nascetur ridiculus mus. Aliquam tincidunt urna.
-Nulla ullamcorper vestibulum turpis. Pellentesque cursus luctus mauris.
+\begin{frame}{Standard Magnitude} 
+Standard magnitude is the magnitude to be published with the standard passband
+\begin{alertblock}{Standard magnitude in standard passband}
+	\begin{equation}
+	m^{std}_b = -2.5 \log_{10}
+	\left( 
+	\frac{\int_0^\infty F_\nu(\lambda) \times S_b^{std}(\lambda) \frac{d\lambda}{\lambda} }{\int_0^\infty F^{AB} \times S_b^{std}(\lambda) \frac{d\lambda}{\lambda}} 
+	\right)
+	\end{equation}	
+\end{alertblock}	
 
-Nulla malesuada porttitor diam. Donec felis erat, congue non, volutpat at,
-tincidunt tristique, libero. Vivamus viverra fermentum felis. Donec nonummy
-pellentesque ante. Phasellus adipiscing semper elit. Proin fermentum massa
-ac quam. Sed diam turpis, molestie vitae, placerat a, molestie nec, leo. Mae-
-cenas lacinia. Nam ipsum ligula, eleifend at, accumsan nec, suscipit a, ipsum.
-Morbi blandit ligula feugiat magna. Nunc eleifend consequat lorem. Sed lacinia
-nulla vitae enim. Pellentesque tincidunt purus vel magna. Integer non enim.
-
-
-
+	\begin{block}{Magnitude correction}
+\begin{eqnarray}
+\delta^{std}_b & = & m_b^{std} - m_b^{obs} \\
+& = & 2.5 \log_{10}\left( \frac{\mathbb{I}_0^{std}(b)}{\mathbb{I}_0^{obs}(b)}\right) 
+%\nonumber \\
+%&   &  
++ 2.5 \log_{10} 
+	\left( 
+	\frac{\int_0^\infty F_\nu(\lambda) \times S_b^{obs}(\lambda) \frac{d\lambda}{\lambda} }{\int_0^\infty F_\nu(\lambda) \times S_b^{std}(\lambda) \frac{d\lambda}{\lambda}} 
+	\right)
+\end{eqnarray} 
+	\end{block}
 
 \end{frame}
+
+
+
+
 
 \begin{frame}
 \begin{center}
