@@ -233,13 +233,14 @@ f_\nu^{\prime\prime}(\lambda)  \equiv  \frac{1}{F_\nu(\lambda)}\frac{d^2F_\nu(\l
 \begin{eqnarray}
 m_b^{std} & = & -2.5 \log_{10}(C_b)  \nonumber \\
           &   &  + 2.5 \log_{10}(\mathbb{I}_0^{obs}(b)) + ZPT^{AB}  \nonumber \\
-          &   &  + 2.5 \log_{10}\left( 
-\frac{1 + f_\nu^\prime(\lambda_b)\mathbb{I}^{obs}_{10}(b)  +\frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\mathbb{I}_{20}^{obs}(b)}
-{1 + f_\nu^\prime(\lambda_b)\mathbb{I}^{std}_{10}(b)  +\frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\mathbb{I}_{20}^{std}(b)}\right)
+%          &   &  + 2.5 \log_{10}\left( 
+%\frac{1 + f_\nu^\prime(\lambda_b)\mathbb{I}^{obs}_{10}(b)  +\frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\mathbb{I}_{20}^{obs}(b)}
+%{1 + f_\nu^\prime(\lambda_b)\mathbb{I}^{std}_{10}(b)  +\frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\mathbb{I}_{20}^{std}(b)}\right)
 \end{eqnarray}
 \end{alertblock}
+
 \begin{block}{Integral definition}
-{\footnotesize 
+{\footnotesize
 \begin{array}{lll}
 \mathbb{I}_0^i(b) = \int_0^{\infty} S_b^i(\lambda) \frac{d\lambda}{\lambda}
 & \mathbb{I}_1^i(b) = \int_0^{\infty} (\lambda-\lambda_b) S_b^i(\lambda) \frac{d\lambda}{\lambda}
@@ -248,15 +249,33 @@ m_b^{std} & = & -2.5 \log_{10}(C_b)  \nonumber \\
 \mathbb{I}^i_{20}(b) = \frac{\mathbb{I}^i_2(b)}{\mathbb{I}^i_0(b)} & 
 \end{array}
 }
+
 with $i=obs$ or $i=std$
 \end{block}
-
-
 \end{frame}
 %==========================================================================================================================
 
 
-
+%==========================================================================================================================
+\begin{frame}{Approximation}
+\begin{alertblock}{Decomposition of standard magnitude}
+\begin{eqnarray}
+m_b^{std} & = & -2.5 \log_{10}(C_b)  \nonumber \\
+          &   &  + 2.5 \log_{10}(\mathbb{I}_0^{obs}(b)) + ZPT^{AB}  \nonumber \\
+          &   &  + 1.087\left( f_\nu^\prime(\lambda_b) \Delta \mathbb{I}_{10}(b) +
+          \frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\Delta \mathbb{I}_{20}(b) \right. \nonumber \\
+         & & - \left. \frac{1}{2}\left( f_\nu^\prime(\lambda_b) \Delta \mathbb{I}_{10}(b) \right)^2             
+          \right)
+\end{eqnarray}
+\end{alertblock}
+\begin{block}{Integral definition}
+\begin{eqnarray}
+\Delta \mathbb{I}_{10}(b) & = &  \mathbb{I}_{10}^{obs}(b)  -  \mathbb{I}_{10}^{std}(b) \\
+\Delta \mathbb{I}_{20}(b) & = &   \mathbb{I}_{20}^{obs}(b)  -  \mathbb{I}_{20}^{std}(b) 
+\end{eqnarray}
+\end{block}
+\end{frame}
+%==========================================================================================================================
 
 
 \begin{frame}
