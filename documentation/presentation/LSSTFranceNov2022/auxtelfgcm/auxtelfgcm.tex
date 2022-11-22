@@ -24,7 +24,7 @@
 
 % Author, Title, etc.
 
-\title[FGCM]{Forward Global Photometric Calibration with Auxtel}
+\title[FGCM]{Forward Global Photometric Calibration at Rubin-LSST with Auxtel}
 
 \titlegraphic{\begin{center}\qquad\pgfuseimage{LogoCNRS}\qquad\quad\qquad\quad\pgfuseimage{LogoIJCLab}\qquad\qquad\pgfuseimage{LogoUPSay}\end{center}}
 
@@ -55,6 +55,8 @@ Sylvie Dagoret-Campagne}
 
 \section{Definitions for FGCM}
 \subsection{Instrumental Flux}
+
+%==================================================================================================================================
 \begin{frame}{Instrumental Flux}
 \begin{alertblock}{Photometric flux of a source}
 	\begin{equation}
@@ -71,8 +73,11 @@ Sylvie Dagoret-Campagne}
 	\end{itemize}
 	\end{alertblock}	
 \end{frame}
+%=================================================================================================================================
+
 
 \subsection{Observed Magnitude}
+%=================================================================================================================================
 \begin{frame}{Observed Magnitude}
 \begin{alertblock}{Observed Magnitude of a source}
 	\begin{equation}
@@ -86,29 +91,66 @@ Sylvie Dagoret-Campagne}
 	\item $F^{AB}=3631 Jy$ : Flat SED with $1 Jy = 1O^{-23} {\rm erg/cm^2/Hz/s}$
 	\item $S_b^{obs}$ : Observation transmission in band $b$  (atmosphere + instrument)
 	\end{itemize}
-	\end{alertblock}		
+	\end{alertblock}	
+In the above formula gives how the physics provides $m_b^{obs}$. However usually the $F_\nu(\lambda)$ of an object is unknown.	
+Note $m^{obs}_b$ is defined independently of any reference to a standard magnitude.
 \end{frame}
+%========================================================================================================================
 
-
+\begin{frame}{Natural magnitude in Rubin LSST}
+Rubin-LSST usually use the concept of normalized passband
+\begin{alertblock}{normalized bandpass response function}
+\begin{equation}
+\phi_b^{obs} (\lambda,t) = \frac{S_b^{obs}(\lambda,t)\frac{1}{\lambda}}{\int_0^\infty S^{obs}_b(\lambda,t) \frac{d\lambda}{\lambda}}
+\end{equation}
+\end{alertblock}
+\begin{block}{Observed flux}
+\begin{equation}
+F_b^{obs} = \int_0^\infty F_\nu(\lambda) \phi_b^{obs}(\lambda) d\lambda
+\end{equation}
+\end{block}
+\begin{exampleblock}{Natural magnitude}
+\begin{equation}
+m_b^{nat} = -2.5 \log_{10} \left( \frac{F_b^{obs}}{F^{AB}}\right)
+\end{equation}
+\end{exampleblock}
+The natural magnitude $m_b^{nat}$ is similar to  the observed magnitude $m_b^{obs}$
+\end{frame}
+%=========================================================================================================================
 \begin{frame}{Decomposition of observed Magnitude} 
+The observed magnitude is estimated from the measured ADU counts in filter $b$
 \begin{alertblock}{}
-	\begin{equation}
+\begin{equation}
 m^{obs}_b = -2.5 \log_{10}(ADU_b)+ 2.5 \log_{10}(\Delta T) + \mathbb{I}_0	^{obs}(b) + ZPT^{AB}
-	\end{equation}	
+\end{equation}	
 \end{alertblock}	
-
-	\begin{block}{}
+However the two following quantities which depend on atmospheric + detectors conditions must be estimated by calibration. 
+\begin{block}{Calibration quantities:}
 \begin{eqnarray}
 \mathbb{I}_0^{obs}(b) & \equiv & \int_0^\infty S^{obs}_b(\lambda) \frac{d\lambda}{\lambda} \\
 ZPT^{AB} & \equiv & 2.5 \log_{10} \left( \frac{A F^{AB}}{gh}\right)
 \end{eqnarray} 
-	\end{block}
+\end{block}
+
 \end{frame}
+%==========================================================================================================================
+
+%==========================================================================================================================
+\begin{frame}{Zero point} 
+Note sometimes one defines the zero point as the magnitude $m_b^{obs}$, such $ADU_b/\Delta T = 1$ count per sec, then
+\begin{equation}
+m^{obs}_b(ZP) \equiv \mathbb{I}_0^{obs}(b) + ZPT^{AB}
+\end{equation}	
+\end{frame}
+%==========================================================================================================================
+
+
 
 \subsection{Standard Magnitude}
-
+%==========================================================================================================================
 \begin{frame}{Standard Magnitude} 
-Standard magnitude is the magnitude to be published with the standard passband
+Standard magnitude is the magnitude to be published with the standard passband. 
+It must be calculated from the observed magnitude.
 \begin{alertblock}{Standard magnitude in standard passband}
 	\begin{equation}
 	m^{std}_b = -2.5 \log_{10}
@@ -118,7 +160,6 @@ Standard magnitude is the magnitude to be published with the standard passband
 	\end{equation}	
 \end{alertblock}	
 
-	\begin{block}{Magnitude correction}
 \begin{eqnarray}
 \delta^{std}_b & = & m_b^{std} - m_b^{obs} \\
 & = & 2.5 \log_{10}\left( \frac{\mathbb{I}_0^{std}(b)}{\mathbb{I}_0^{obs}(b)}\right) 
@@ -127,21 +168,102 @@ Standard magnitude is the magnitude to be published with the standard passband
 	\frac{\int_0^\infty F_\nu(\lambda) \times S_b^{obs}(\lambda) \frac{d\lambda}{\lambda} }{\int_0^\infty F_\nu(\lambda) \times S_b^{std}(\lambda) \frac{d\lambda}{\lambda}} 
 	\right)
 \end{eqnarray} 
-	\end{block}
+\end{frame}
+%==========================================================================================================================
+
+%==========================================================================================================================
+\begin{frame}{Standard magnitude in Rubin LSST}
+\begin{alertblock}{standard magnitude}
+\begin{eqnarray}
+m_b^{std} & = & m_b^{nat} + \Delta m_b^{obs} \\
+\Delta m_b^{obs} & = & 2.5 \log_{10} \frac{\int_0^\infty F_\nu(\lambda) \phi_b^{obs}(\lambda) d\lambda}{\int_0^\infty F_\nu(\lambda) \phi_b^{std}(\lambda) d\lambda}
+\end{eqnarray}
+\end{alertblock}
+\begin{block}{}
+\begin{equation}
+\Delta m_b^{obs} = \delta_b^{std} =  2.5 \log_{10}\left( \frac{\mathbb{I}_0^{std}(b)}{\mathbb{I}_0^{obs}(b)}\right) 
++ 2.5 \log_{10} 
+	\left( 
+	\frac{\int_0^\infty F_\nu(\lambda) \times S_b^{obs}(\lambda) \frac{d\lambda}{\lambda} }{\int_0^\infty F_\nu(\lambda) \times S_b^{std}(\lambda) \frac{d\lambda}{\lambda}} 
+	\right)
+\end{equation}
+\end{block}
+\end{frame}
+%==========================================================================================================================
+
+%==========================================================================================================================
+\begin{frame}{Zero Point in Rubin-LSST}
+\begin{exampleblock}{Zero point definition}
+\begin{eqnarray}
+m_b^{std} & = & -2.5 \log_{10}(C_b^{obs}) + \Delta m_b^{obs} + Z_b^{obs}
+\end{eqnarray}
+with $C_b^{obs} = ADU_b/\Delta T$
+\end{exampleblock}
+\begin{alertblock}{Correspondence of Zero point in Rubin-DES}
+\begin{equation}
+Z_b^{obs} = \mathbb{I}_0(b) + ZPT^{AB}
+\end{equation}
+\end{alertblock}
+\end{frame}
+%==========================================================================================================================
+
+
+\subsection{Taylor Development of the SED}
+%==========================================================================================================================
+\begin{frame}{Taylor Development of the SED} 
+\begin{exampleblock}{SED approximation}
+\begin{eqnarray}
+F_\nu(\lambda) & = & F_\nu(\lambda_b) \left(1 + f^\prime(\lambda_b)(\lambda-\lambda_b) + \frac{f^{\prime\prime}(\lambda_b)}{2}(\lambda-\lambda_b)^2 + \cdots \right) \\
+f_\nu^\prime(\lambda) & \equiv & \frac{1}{F_\nu(\lambda)}\frac{dF_\nu(\lambda)}{d\lambda} \qquad \qquad \qquad
+f_\nu^{\prime\prime}(\lambda)  \equiv  \frac{1}{F_\nu(\lambda)}\frac{d^2F_\nu(\lambda)}{d\lambda^2} \nonumber \\
+\lambda_b & \equiv & \frac{\int_0^{\infty} \lambda \times S_b^{inst}(\lambda) \frac{d\lambda}{\lambda}}
+{\int_0^{\infty} S_b^{inst}(\lambda) \frac{d\lambda}{\lambda}}
+\end{eqnarray}
+\begin{itemize}
+\item $S_b^{obs}(\lambda) = S_b^{inst}(\lambda,t,x,y) \times S^{atm}(\lambda,t,alt,az)$
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+%==========================================================================================================================
+
+\subsection{Summary of definitions}
+%==========================================================================================================================
+\begin{frame}{Summary of definitions}
+\begin{alertblock}{Decomposition of standard magnitude}
+\begin{eqnarray}
+m_b^{std} & = & -2.5 \log_{10}(C_b)  \nonumber \\
+          &   &  + 2.5 \log_{10}(\mathbb{I}_0^{obs}(b)) + ZPT^{AB}  \nonumber \\
+          &   &  + 2.5 \log_{10}\left( 
+\frac{1 + f_\nu^\prime(\lambda_b)\mathbb{I}^{obs}_{10}(b)  +\frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\mathbb{I}_{20}^{obs}(b)}
+{1 + f_\nu^\prime(\lambda_b)\mathbb{I}^{std}_{10}(b)  +\frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\mathbb{I}_{20}^{std}(b)}\right)
+\end{eqnarray}
+\end{alertblock}
+\begin{block}{Integral definition}
+{\footnotesize 
+\begin{array}{lll}
+\mathbb{I}_0^i(b) = \int_0^{\infty} S_b^i(\lambda) \frac{d\lambda}{\lambda}
+& \mathbb{I}_1^i(b) = \int_0^{\infty} (\lambda-\lambda_b) S_b^i(\lambda) \frac{d\lambda}{\lambda}
+& \mathbb{I}_2^i(b) = \int_0^{\infty} (\lambda-\lambda_b)^2 S_b^i(\lambda) \frac{d\lambda}{\lambda} \\
+\mathbb{I}^i_{10}(b) = \frac{\mathbb{I}^i_1(b)}{\mathbb{I}^i_0(b)} &
+\mathbb{I}^i_{20}(b) = \frac{\mathbb{I}^i_2(b)}{\mathbb{I}^i_0(b)} & 
+\end{array}
+}
+with $i=obs$ or $i=std$
+\end{block}
+
 
 \end{frame}
+%==========================================================================================================================
 
-\subsection{Development of SED}
-\begin{frame}{Development of SED} 
 
-\end{frame}
+
 
 
 \begin{frame}
 \begin{center}
 {\usebeamerfont{frametitle}
 
-\LARGE \alert{Merci pour votre attention}}
+\LARGE \alert{Thanks for your attention}}
 
 \end{center}
 
