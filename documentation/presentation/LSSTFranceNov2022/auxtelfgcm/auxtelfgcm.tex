@@ -88,7 +88,7 @@ Sylvie Dagoret-Campagne}
 	\begin{itemize}
 	\item $m^{obs}_b$ : observed magnitude in band $b$
 	\item $F_\nu$ : SED in ${\rm erg/cm^2/Hz/s}$
-	\item $F^{AB}=3631 Jy$ : Flat SED with $1 Jy = 1O^{-23} {\rm erg/cm^2/Hz/s}$
+	\item $F^{AB}=3631 Jy$ : Flat SED with $1 Jy = 10^{-23} {\rm erg/cm^2/Hz/s}$
 	\item $S_b^{obs}$ : Observation transmission in band $b$  (atmosphere + instrument)
 	\end{itemize}
 	\end{alertblock}	
@@ -97,6 +97,9 @@ Note $m^{obs}_b$ is defined independently of any reference to a standard magnitu
 \end{frame}
 %========================================================================================================================
 
+
+
+%========================================================================================================================
 \begin{frame}{Natural magnitude in Rubin LSST}
 Rubin-LSST usually use the concept of normalized passband
 \begin{alertblock}{normalized bandpass response function}
@@ -117,11 +120,15 @@ m_b^{nat} = -2.5 \log_{10} \left( \frac{F_b^{obs}}{F^{AB}}\right)
 The natural magnitude $m_b^{nat}$ is similar to  the observed magnitude $m_b^{obs}$
 \end{frame}
 %=========================================================================================================================
+
+
+
+%========================================================================================================================
 \begin{frame}{Decomposition of observed Magnitude} 
-The observed magnitude is estimated from the measured ADU counts in filter $b$
+The observed magnitude is estimated from the measured ADU counts rate $C_b=ADU_b/\Delta T$ in filter $b$
 \begin{alertblock}{}
 \begin{equation}
-m^{obs}_b = -2.5 \log_{10}(ADU_b)+ 2.5 \log_{10}(\Delta T) + \mathbb{I}_0	^{obs}(b) + ZPT^{AB}
+m^{obs}_b = -2.5 \log_{10}(C_b)+ 2.5 \log_{10}\left(\mathbb{I}_0^{obs}(b)\right) + ZPT^{AB}
 \end{equation}	
 \end{alertblock}	
 However the two following quantities which depend on atmospheric + detectors conditions must be estimated by calibration. 
@@ -139,8 +146,13 @@ ZPT^{AB} & \equiv & 2.5 \log_{10} \left( \frac{A F^{AB}}{gh}\right)
 \begin{frame}{Zero point} 
 Note sometimes one defines the zero point as the magnitude $m_b^{obs}$, such $ADU_b/\Delta T = 1$ count per sec, then
 \begin{equation}
-m^{obs}_b(ZP) \equiv \mathbb{I}_0^{obs}(b) + ZPT^{AB}
+m^{obs}_b(ZP) \equiv 2.5\log_{10}\left( \mathbb{I}_0^{obs}(b)\right) + ZPT^{AB}
 \end{equation}	
+\begin{itemize}
+\item the zero point is common to all sources whatever their color is 
+\item it has a time  dependent component : $2.5\log_{10}\left( \mathbb{I}_0^{obs}(b)\right)$
+\item it has a detector (CCD) dependent component :  $ZPT^{AB}$ through the relative electronic gain $g$
+\end{itemize}
 \end{frame}
 %==========================================================================================================================
 
@@ -161,8 +173,8 @@ It must be calculated from the observed magnitude.
 \end{alertblock}	
 
 \begin{eqnarray}
-\delta^{std}_b & = & m_b^{std} - m_b^{obs} \\
-& = & 2.5 \log_{10}\left( \frac{\mathbb{I}_0^{std}(b)}{\mathbb{I}_0^{obs}(b)}\right) 
+\delta^{std}_b & \equiv & m_b^{std} - m_b^{obs} \\
+& \equiv & 2.5 \log_{10}\left( \frac{\mathbb{I}_0^{std}(b)}{\mathbb{I}_0^{obs}(b)}\right) 
 + 2.5 \log_{10} 
 	\left( 
 	\frac{\int_0^\infty F_\nu(\lambda) \times S_b^{obs}(\lambda) \frac{d\lambda}{\lambda} }{\int_0^\infty F_\nu(\lambda) \times S_b^{std}(\lambda) \frac{d\lambda}{\lambda}} 
@@ -201,7 +213,7 @@ with $C_b^{obs} = ADU_b/\Delta T$
 \end{exampleblock}
 \begin{alertblock}{Correspondence of Zero point in Rubin-DES}
 \begin{equation}
-Z_b^{obs} = \mathbb{I}_0(b) + ZPT^{AB}
+Z_b^{obs} = 2.5\log_{10}\left(\mathbb{I}_0^{obs}(b)\right) + ZPT^{AB}
 \end{equation}
 \end{alertblock}
 \end{frame}
@@ -233,9 +245,9 @@ f_\nu^{\prime\prime}(\lambda)  \equiv  \frac{1}{F_\nu(\lambda)}\frac{d^2F_\nu(\l
 \begin{eqnarray}
 m_b^{std} & = & -2.5 \log_{10}(C_b)  \nonumber \\
           &   &  + 2.5 \log_{10}(\mathbb{I}_0^{obs}(b)) + ZPT^{AB}  \nonumber \\
-%          &   &  + 2.5 \log_{10}\left( 
-%\frac{1 + f_\nu^\prime(\lambda_b)\mathbb{I}^{obs}_{10}(b)  +\frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\mathbb{I}_{20}^{obs}(b)}
-%{1 + f_\nu^\prime(\lambda_b)\mathbb{I}^{std}_{10}(b)  +\frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\mathbb{I}_{20}^{std}(b)}\right)
+          &   &  + 2.5 \log_{10}\left( 
+\frac{1 + f_\nu^\prime(\lambda_b)\mathbb{I}^{obs}_{10}(b)  +\frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\mathbb{I}_{20}^{obs}(b)}
+{1 + f_\nu^\prime(\lambda_b)\mathbb{I}^{std}_{10}(b)  +\frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\mathbb{I}_{20}^{std}(b)}\right)
 \end{eqnarray}
 \end{alertblock}
 
