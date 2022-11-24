@@ -203,6 +203,22 @@ m_b^{std} & = & m_b^{nat} + \Delta m_b^{obs} \\
 \end{frame}
 %==========================================================================================================================
 
+
+%==========================================================================================================================
+\begin{frame}{Standard magnitude in Rubin LSST}
+\begin{alertblock}{standard magnitude}
+\begin{eqnarray}
+m_b^{std} & = &  -2.5 \log_{10}(C_b)+ 2.5 \log_{10}\left(\mathbb{I}_0^{std}(b)\right) + ZPT^{AB}   \nonumber \\
+ & & + 2.5 \log_{10} 
+	\left( 
+	\frac{\int_0^\infty F_\nu(\lambda) \times S_b^{obs}(\lambda) \frac{d\lambda}{\lambda} }{\int_0^\infty F_\nu(\lambda) \times S_b^{std}(\lambda) \frac{d\lambda}{\lambda}} 
+	\right)
+\end{eqnarray}
+\end{alertblock}
+\end{frame}
+%============================================================================================
+
+
 %==========================================================================================================================
 \begin{frame}{Zero Point in Rubin-LSST}
 \begin{exampleblock}{Zero point definition}
@@ -244,7 +260,7 @@ f_\nu^{\prime\prime}(\lambda)  \equiv  \frac{1}{F_\nu(\lambda)}\frac{d^2F_\nu(\l
 \begin{alertblock}{Decomposition of standard magnitude}
 \begin{eqnarray}
 m_b^{std} & = & -2.5 \log_{10}(C_b)  \nonumber \\
-          &   &  + 2.5 \log_{10}(\mathbb{I}_0^{obs}(b)) + ZPT^{AB}  \nonumber \\
+          &   &  + 2.5 \log_{10}(\mathbb{I}_0^{std}(b)) + ZPT^{AB}  \nonumber \\
           &   &  + 2.5 \log_{10}\left( 
 \frac{1 + f_\nu^\prime(\lambda_b)\mathbb{I}^{obs}_{10}(b)  +\frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\mathbb{I}_{20}^{obs}(b)}
 {1 + f_\nu^\prime(\lambda_b)\mathbb{I}^{std}_{10}(b)  +\frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\mathbb{I}_{20}^{std}(b)}\right)
@@ -274,7 +290,7 @@ with $i=obs$ or $i=std$
 \begin{alertblock}{Decomposition of standard magnitude}
 \begin{eqnarray}
 m_b^{std} & = & -2.5 \log_{10}(C_b)  \nonumber \\
-          &   &  + 2.5 \log_{10}(\mathbb{I}_0^{obs}(b)) + ZPT^{AB}  \nonumber \\
+          &   &  + 2.5 \log_{10}(\mathbb{I}_0^{std}(b)) + ZPT^{AB}  \nonumber \\
           &   &  + 1.087\left( f_\nu^\prime(\lambda_b) \Delta \mathbb{I}_{10}(b) +
           \frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\Delta \mathbb{I}_{20}(b) \right. \nonumber \\
          & & - \left. \frac{1}{2}\left( f_\nu^\prime(\lambda_b) \Delta \mathbb{I}_{10}(b) \right)^2             
