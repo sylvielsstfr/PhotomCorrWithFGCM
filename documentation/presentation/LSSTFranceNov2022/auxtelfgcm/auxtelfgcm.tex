@@ -235,7 +235,7 @@ m_b^{std} & = &  -2.5 \log_{10}(C_b^{obs})+ 2.5 \log_{10}\left(\frac{\mathbb{I}_
 \end{eqnarray}
 \end{alertblock}
 \begin{itemize}
-\item $-2.5 \log_{10}(C_b^{obs})$ : measured aperture photometric term
+\item $-2.5 \log_{10}(C_b^{obs})$ : measured instrumnetal aperture photometric term (ADU rate)
 \item $2.5 \log_{10}\left(\frac{\mathbb{I}_0^{std}(b)}{\mathbb{I}_0^{obs}}\right)$ : SED color free correction term for atmospheric transparency standard/observed
 \item $m_b^{obs}(ZPT)$ :  SED color free observed magnitude Zero Point correction term at CCD level,
 \item $2.5 \log_{10} 
@@ -260,7 +260,7 @@ m_b^{std} & = &  -2.5 \log_{10}(C_b^{obs})+ 2.5 \log_{10}\left(\mathbb{I}_0^{std
 \end{eqnarray}
 \end{alertblock}
 \begin{itemize}
-\item $-2.5 \log_{10}(C_b^{obs})$ : measured aperture photometric term
+\item $-2.5 \log_{10}(C_b^{obs})$ : measured instrumental aperture photometric term (ADU rate)
 \item $2.5 \log_{10}\left(\mathbb{I}_0^{std}(b)\right)$ : Calculable constant
 \item $ZPT^{AB} = \frac{A F^{AB}}{gh}$ :  SED color free observed magnitude Zero Point correction term at CCD level (electronic gain),
 \item $2.5 \log_{10} 
@@ -272,11 +272,33 @@ m_b^{std} & = &  -2.5 \log_{10}(C_b^{obs})+ 2.5 \log_{10}\left(\mathbb{I}_0^{std
 
 
 
-
-\subsection{Taylor Development of the SED}
 %==========================================================================================================================
-\begin{frame}{Taylor Development of the SED} 
-\begin{exampleblock}{SED approximation}
+\begin{frame}{Interpretable standard magnitude expression}
+\begin{alertblock}{option C : using normalized passband}
+\begin{eqnarray}
+m_b^{std} & = &  -2.5 \log_{10}(C_b^{obs})+ 2.5 \log_{10}\left(\mathbb{I}_0^{obs}(b)\right) + ZPT^{AB}   \nonumber \\
+ & & + 2.5 \log_{10} 
+	\left( 
+	\frac{\int_0^\infty F_\nu(\lambda) \times \phi_b^{obs}(\lambda) d\lambda }{\int_0^\infty F_\nu(\lambda) \times \phi_b^{std}(\lambda) d\lambda} 
+	\right)
+\end{eqnarray}
+\end{alertblock}
+\begin{itemize}
+\item $-2.5 \log_{10}(C_b^{obs})$ : measured instrumental aperture photometric term (ADU rate)
+\item $2.5 \log_{10}\left(\mathbb{I}_0^{obs}(b)\right)$ : measured variable absorption in the band $b$ (compensate $C_b^{obs}$)
+\item $ZPT^{AB} = \frac{A F^{AB}}{gh}$ :  SED color free observed magnitude Zero Point correction term at CCD level (electronic gain),
+\item $2.5 \log_{10} 
+	\left( 
+	\frac{\int_0^\infty F_\nu(\lambda) \times \phi_b^{obs}(\lambda) d\lambda}{\int_0^\infty F_\nu(\lambda) \times \phi_b^{std}(\lambda) d\lambda}\right)$ : SED color dependent term correction
+\end{itemize}
+\end{frame}
+%============================================================================================
+
+
+\subsection{Approximation for SED shape}
+%==========================================================================================================================
+\begin{frame}{Approximation for SED shape} 
+\begin{exampleblock}{SED approximation as Taylor expansion}
 \begin{eqnarray}
 F_\nu(\lambda) & = & F_\nu(\lambda_b) \left(1 + f^\prime(\lambda_b)(\lambda-\lambda_b) + \frac{f^{\prime\prime}(\lambda_b)}{2}(\lambda-\lambda_b)^2 + \cdots \right) \\
 f_\nu^\prime(\lambda) & \equiv & \frac{1}{F_\nu(\lambda)}\frac{dF_\nu(\lambda)}{d\lambda} \qquad \qquad \qquad
@@ -322,6 +344,7 @@ with $i=obs$ or $i=std$
 %==========================================================================================================================
 
 
+\subsection{SED shape or color correction}
 %==========================================================================================================================
 \begin{frame}{Approximation of color correction}
 \begin{alertblock}{Decomposition of standard magnitude}
@@ -345,10 +368,10 @@ m_b^{std} & = & -2.5 \log_{10}(C_b)  \nonumber \\
 
 
 
-
+\subsection{Error on Magnitude for SED shape correction}
 %==========================================================================================================================
-\begin{frame}{Error on SED Approximation }
-\begin{alertblock}{Decomposition of standard magnitude}
+\begin{frame}{Error on Magnitude for SED shape correction}
+\begin{alertblock}{Error on Magnitude for SED-shape correction}
 \begin{eqnarray}
 \Delta m & = & \left| 2.5 \log_{10}\left(
 \frac{\mathbb{I}_0^{std}(b)}
@@ -360,7 +383,16 @@ m_b^{std} & = & -2.5 \log_{10}(C_b)  \nonumber \\
     & & \left. - 1.087\left( f_\nu^\prime(\lambda_b) \Delta \mathbb{I}_{10}(b) +
           \frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\Delta \mathbb{I}_{20}(b) \right. 
          - \left. \frac{1}{2}\left( f_\nu^\prime(\lambda_b) \Delta \mathbb{I}_{10}(b) \right)^2             
-          \right)\right|
+          \right)\right| \nonumber \\
+\Delta m & = & \left| 
+2.5 \log_{10} 
+	\left( 
+	\frac{\int_0^\infty F_\nu(\lambda) \times \phi_b^{obs}(\lambda) d\lambda}{\int_0^\infty F_\nu(\lambda) \times \phi_b^{std}(\lambda)d\lambda} 
+	\right) \right. \nonumber \\
+    & & \left. - 1.087\left( f_\nu^\prime(\lambda_b) \Delta \mathbb{I}_{10}(b) +
+          \frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\Delta \mathbb{I}_{20}(b) \right. 
+         - \left. \frac{1}{2}\left( f_\nu^\prime(\lambda_b) \Delta \mathbb{I}_{10}(b) \right)^2             
+          \right)\right| \nonumber
 \end{eqnarray}  
 \end{alertblock}
 \end{frame}
