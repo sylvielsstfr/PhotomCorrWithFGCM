@@ -24,7 +24,10 @@
 
 % Author, Title, etc.
 
-\title[FGCM]{Forward Global Photometric Calibration at Rubin-LSST with Auxtel}
+\title[Photometric Corrections with FGCM]{Photometric Correction \\
+with Forward Global Calibration Model \\
+in the context of DM Rubin-LSST science pipeline \\
+{\small LSST France parallel session}}
 
 \titlegraphic{\begin{center}\qquad\pgfuseimage{LogoCNRS}\qquad\quad\qquad\quad\pgfuseimage{LogoIJCLab}\qquad\qquad\pgfuseimage{LogoUPSay}\end{center}}
 
@@ -33,27 +36,47 @@ Sylvie Dagoret-Campagne}
 \institute[IJCLab]{
   IJCLab,
   CNRS/IN2P3 \& Université Paris-Saclay,
-  Orsay, France   }
+  Orsay, France \\ \today  }
   
   % Caution  : This is not the affiliation to be used to sign articles. 
   % Please refer to the intranet : Bibliothèque/IST / Règles de publication
      
-\date[Orsay, November 2022]{Photometric corrections with atmospheric calibration}
+\date[LPNHE, November 29th 2022]{LSST-France, November 2022}
 
 
 % The main document with a few examples
 
 \begin{document}
 
+%==================================================================================================================================
 \begin{frame}
   \titlepage
 \end{frame}
+%==================================================================================================================================
 
+%==================================================================================================================================
+\begin{frame}{Motivations}
+\begin{itemize}
+\item Sources/Object standard magnitude estimation from instrumental magnitude $\rightarrow$ for coaddition of sigle epoch measurements
+\item use of time dependent transmission (instrument + atmosphere)
+\item photometric correction depending on poorly known objects SED
+\item to be implemented inside DM Rubin-LSST science pipelines 
+\item participation of DESC technical groups (SAWG,PCWG,PSF), namely during commissioning phase,
+\item need participation of Science groups (PhotoZ, and objects groups like SN, and other astrophysical groups),
+\end{itemize}
+\end{frame}
+%==================================================================================================================================
+
+%==================================================================================================================================
 \begin{frame}{Outline}
   \tableofcontents
 \end{frame}
+%==================================================================================================================================
 
-\section{Definitions for FGCM}
+
+
+
+\section{Key formula, definitions and notations}
 \subsection{Instrumental Flux}
 
 %==================================================================================================================================
@@ -150,8 +173,8 @@ m^{obs}_b(ZP) \equiv 2.5\log_{10}\left( \mathbb{I}_0^{obs}(b)\right) + ZPT^{AB}
 \end{equation}	
 \begin{itemize}
 \item the zero point is common to all sources whatever their color is 
-\item it has a time  dependent component : $2.5\log_{10}\left( \mathbb{I}_0^{obs}(b)\right)$
-\item it has a detector (CCD) dependent component :  $ZPT^{AB}$ through the relative electronic gain $g$
+\item it has a time  dependent and passband $b$ dependent component : $2.5\log_{10}\left( \mathbb{I}_0^{obs}(b)\right)$
+\item it has a detector (CCD) dependent component :  $ZPT^{AB}$ through the relative electronic gain $g$, (independent of the passband $b$ ?, long time-scale dependence (night) ?)
 \end{itemize}
 \end{frame}
 %==========================================================================================================================
@@ -184,7 +207,7 @@ It must be calculated from the observed magnitude.
 %==========================================================================================================================
 
 %==========================================================================================================================
-\begin{frame}{Standard magnitude in Rubin LSST}
+\begin{frame}{Standard magnitude in Rubin-LSST}
 \begin{alertblock}{standard magnitude}
 \begin{eqnarray}
 m_b^{std} & = & m_b^{nat} + \Delta m_b^{obs} \\
@@ -192,13 +215,19 @@ m_b^{std} & = & m_b^{nat} + \Delta m_b^{obs} \\
 \end{eqnarray}
 \end{alertblock}
 \begin{block}{}
-\begin{equation}
-\Delta m_b^{obs} = \delta_b^{std} =  2.5 \log_{10}\left( \frac{\mathbb{I}_0^{std}(b)}{\mathbb{I}_0^{obs}(b)}\right) 
+{\small
+\begin{eqnarray}
+\Delta m_b^{obs} = \delta_b^{std} & = & 2.5 \log_{10}\left( \frac{\mathbb{I}_0^{std}(b)}{\mathbb{I}_0^{obs}(b)}\right) 
 + 2.5 \log_{10} 
 	\left( 
 	\frac{\int_0^\infty F_\nu(\lambda) \times S_b^{obs}(\lambda) \frac{d\lambda}{\lambda} }{\int_0^\infty F_\nu(\lambda) \times S_b^{std}(\lambda) \frac{d\lambda}{\lambda}} 
-	\right)
-\end{equation}
+	\right) \nonumber \\
+& = & 	2.5 \log_{10} 
+	\left( 
+	\frac{\int_0^\infty F_\nu(\lambda) \times \phi_b^{obs}(\lambda) d\lambda}{\int_0^\infty F_\nu(\lambda) \times \phi_b^{std}(\lambda) d\lambda} 
+	\right) \nonumber	
+\end{eqnarray}
+}
 \end{block}
 \end{frame}
 %==========================================================================================================================
@@ -325,29 +354,34 @@ m_b^{std} & = & -2.5 \log_{10}(C_b)  \nonumber \\
 {1 + f_\nu^\prime(\lambda_b)\mathbb{I}^{std}_{10}(b)  +\frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\mathbb{I}_{20}^{std}(b)}\right)
 \end{eqnarray}
 \end{alertblock}
+\end{frame}
+%==========================================================================================================================
 
-\begin{block}{Integral definition}
-{\footnotesize
-$
-\begin{array}{lll}
-\mathbb{I}_0^i(b) = \int_0^{\infty} S_b^i(\lambda) \frac{d\lambda}{\lambda}
-& \mathbb{I}_1^i(b) = \int_0^{\infty} (\lambda-\lambda_b) S_b^i(\lambda) \frac{d\lambda}{\lambda}
-& \mathbb{I}_2^i(b) = \int_0^{\infty} (\lambda-\lambda_b)^2 S_b^i(\lambda) \frac{d\lambda}{\lambda} \\
-\mathbb{I}^i_{10}(b) = \frac{\mathbb{I}^i_1(b)}{\mathbb{I}^i_0(b)} &
-\mathbb{I}^i_{20}(b) = \frac{\mathbb{I}^i_2(b)}{\mathbb{I}^i_0(b)} & 
-\end{array}
-$
-}
+
+%==========================================================================================================================
+\begin{frame}{Transmission moments definitions}
+\begin{block}{Transmission moments definitions}
+
+\begin{eqnarray}
+\mathbb{I}_0^i(b) & = & \int_0^{\infty} S_b^i(\lambda) \frac{d\lambda}{\lambda} \\
+\mathbb{I}_1^i(b) & = & \int_0^{\infty} (\lambda-\lambda_b) S_b^i(\lambda) \frac{d\lambda}{\lambda} \\
+ \mathbb{I}_2^i(b) & = &\int_0^{\infty} (\lambda-\lambda_b)^2 S_b^i(\lambda) \frac{d\lambda}{\lambda} \\
+\mathbb{I}^i_{10}(b)  & = &\frac{\mathbb{I}^i_1(b)}{\mathbb{I}^i_0(b)} \\
+\mathbb{I}^i_{20}(b) & = & \frac{\mathbb{I}^i_2(b)}{\mathbb{I}^i_0(b)} 
+\end{eqnarray}
+
 with $i=obs$ or $i=std$
 \end{block}
 \end{frame}
 %==========================================================================================================================
 
 
+
+
 \subsection{SED shape or color correction}
 %==========================================================================================================================
 \begin{frame}{Approximation of color correction}
-\begin{alertblock}{Decomposition of standard magnitude}
+\begin{alertblock}{SED shape ($f^\prime_\nu,f^{\prime\prime}_\nu$) color correction}
 \begin{eqnarray}
 m_b^{std} & = & -2.5 \log_{10}(C_b)  \nonumber \\
           &   &  + 2.5 \log_{10}(\mathbb{I}_0^{obs}(b)) + ZPT^{AB}  \nonumber \\
@@ -357,7 +391,7 @@ m_b^{std} & = & -2.5 \log_{10}(C_b)  \nonumber \\
           \right)
 \end{eqnarray}
 \end{alertblock}
-\begin{block}{Integral definition}
+\begin{block}{Moments difference definition}
 \begin{eqnarray}
 \Delta \mathbb{I}_{10}(b) & = &  \mathbb{I}_{10}^{obs}(b)  -  \mathbb{I}_{10}^{std}(b) \\
 \Delta \mathbb{I}_{20}(b) & = &   \mathbb{I}_{20}^{obs}(b)  -  \mathbb{I}_{20}^{std}(b) 
@@ -368,9 +402,9 @@ m_b^{std} & = & -2.5 \log_{10}(C_b)  \nonumber \\
 
 
 
-\subsection{Error on Magnitude for SED shape correction}
+\subsection{Bias on Magnitude for SED shape correction}
 %==========================================================================================================================
-\begin{frame}{Error on Magnitude for SED shape correction}
+\begin{frame}{Bias on Magnitude for SED shape correction}
 \begin{alertblock}{Error on Magnitude for SED-shape correction}
 \begin{eqnarray}
 \Delta m & = & \left| 2.5 \log_{10}\left(
@@ -397,6 +431,28 @@ m_b^{std} & = & -2.5 \log_{10}(C_b)  \nonumber \\
 \end{alertblock}
 \end{frame}
 %==========================================================================================================================
+
+
+\begin{frame}{Bias on Magnitude for SED shape correction}
+\begin{block}{Error on Magnitude for SED-shape correction}
+\begin{eqnarray}
+\Delta \mathbb{I}_{i0}(b) & = &  \mathbb{I}_{i0}^{obs}(b,z_{obs},aer_{obs},pwv_{obs}) - \mathbb{I}_{i0}^{std}(b,z_{std},aer_{std},pwv_{std}) \nonumber \\
+& = & \left(\mathbb{I}_{i0}^{obs}(b,z_{obs},aer_{obs},pwv_{obs}) - \mathbb{I}_{i0}^{std}(b,z_{obs},aer_{std},pwv_{std})\right) +  \nonumber \\
+& & \left(\mathbb{I}_{i0}^{std}(b,z_{obs},aer_{std},pwv_{std}) - \mathbb{I}_{i0}^{std}(b,z_{std},aer_{std},pwv_{std})\right)  \nonumber 
+\end{eqnarray}
+\end{block}
+
+\begin{alertblock}{Linearity - standard atmosphere at different airmass}
+\begin{eqnarray}
+\Delta \mathbb{I}_{i0}(b) & = & \left(\mathbb{I}_{i0}^{obs}(b,z_{obs}) - \mathbb{I}_{i0}^{std}(b,z_{obs})\right) + \frac{\partial}{\partial z}\mathbb{I}_{i0}^{std}(b,z_{std})(z_{obs}-z_{std}) + \cdots \nonumber
+\end{eqnarray}
+\end{alertblock}
+\begin{itemize}
+\item $\mathbb{I}_{i0}^{obs}(b,z_{obs})$ : measured
+\item $\mathbb{I}_{i0}^{std}(b,z_{obs})$ and $\frac{\partial}{\partial z}\mathbb{I}_{i0}^{std}(b,z_{std})$: from standard atmospheric model
+\end{itemize}
+\end{frame}
+
 
 
 %==========================================================================================================================
