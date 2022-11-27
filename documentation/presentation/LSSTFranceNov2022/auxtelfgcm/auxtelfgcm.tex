@@ -57,8 +57,8 @@ Sylvie Dagoret-Campagne}
 %==================================================================================================================================
 \begin{frame}{Motivations}
 \begin{itemize}
-\item Sources/Object standard magnitude estimation from instrumental magnitude $\rightarrow$ for coaddition of sigle epoch measurements
-\item use of time dependent transmission (instrument + atmosphere)
+\item Sources/Object standard magnitude estimation from instrumental magnitude $\rightarrow$ allowing coaddition of sigle epoch measurements
+\item use of time dependent epoch transmissions (instrument + atmosphere)
 \item photometric correction depending on poorly known objects SED
 \item to be implemented inside DM Rubin-LSST science pipelines 
 \item participation of DESC technical groups (SAWG,PCWG,PSF), namely during commissioning phase,
@@ -123,7 +123,7 @@ Note $m^{obs}_b$ is defined independently of any reference to a standard magnitu
 
 
 %========================================================================================================================
-\begin{frame}{Natural magnitude in Rubin LSST}
+\begin{frame}{Natural magnitude in Rubin-LSST}
 Rubin-LSST usually use the concept of normalized passband
 \begin{alertblock}{normalized bandpass response function}
 \begin{equation}
@@ -314,7 +314,7 @@ m_b^{std} & = &  -2.5 \log_{10}(C_b^{obs})+ 2.5 \log_{10}\left(\mathbb{I}_0^{obs
 \end{alertblock}
 \begin{itemize}
 \item $-2.5 \log_{10}(C_b^{obs})$ : measured instrumental aperture photometric term (ADU rate)
-\item $2.5 \log_{10}\left(\mathbb{I}_0^{obs}(b)\right)$ : measured variable absorption in the band $b$ (compensate $C_b^{obs}$)
+\item $2.5 \log_{10}\left(\mathbb{I}_0^{obs}(b)\right)$ : order 0 correction : measured variable absorption in the band $b$ (compensate $C_b^{obs}$)
 \item $ZPT^{AB} = \frac{A F^{AB}}{gh}$ :  SED color free observed magnitude Zero Point correction term at CCD level (electronic gain),
 \item $2.5 \log_{10} 
 	\left( 
@@ -322,6 +322,8 @@ m_b^{std} & = &  -2.5 \log_{10}(C_b^{obs})+ 2.5 \log_{10}\left(\mathbb{I}_0^{obs
 \end{itemize}
 \end{frame}
 %============================================================================================
+
+
 
 
 \subsection{Approximation for SED shape}
@@ -378,9 +380,9 @@ with $i=obs$ or $i=std$
 
 
 
-\subsection{SED shape or color correction}
+\subsection{SED shape correction}
 %==========================================================================================================================
-\begin{frame}{Approximation of color correction}
+\begin{frame}{Approximation for SED shape correction}
 \begin{alertblock}{SED shape ($f^\prime_\nu,f^{\prime\prime}_\nu$) color correction}
 \begin{eqnarray}
 m_b^{std} & = & -2.5 \log_{10}(C_b)  \nonumber \\
@@ -432,7 +434,7 @@ m_b^{std} & = & -2.5 \log_{10}(C_b)  \nonumber \\
 \end{frame}
 %==========================================================================================================================
 
-
+%==========================================================================================================================
 \begin{frame}{Bias on Magnitude for SED shape correction}
 \begin{block}{Error on Magnitude for SED-shape correction}
 \begin{eqnarray}
@@ -452,8 +454,39 @@ m_b^{std} & = & -2.5 \log_{10}(C_b)  \nonumber \\
 \item $\mathbb{I}_{i0}^{std}(b,z_{obs})$ and $\frac{\partial}{\partial z}\mathbb{I}_{i0}^{std}(b,z_{std})$: from standard atmospheric model
 \end{itemize}
 \end{frame}
+%==========================================================================================================================
 
 
+
+\section{LSST Rubin science pipelines}
+\begin{frame}{Rubin-LSST science pipeline}
+\includegraphics[width=12cm, height=12cm]{figs/dm/DMpipelines1.png}
+\end{frame}
+
+\begin{frame}{Rubin-LSST science pipeline}
+\begin{tabular}{cc}
+\includegraphics[width=6cm, height=3.5cm]{figs/dm/DMpipelines11.png}
+&
+\includegraphics[width=6cm, height=8cm]{figs/dm/DMpipelines2.png}
+\end{tabular}
+\end{frame}
+
+\begin{frame}{Rubin-LSST calibration plan}
+\includegraphics[width=12cm, height=8cm]{figs/calib/LSSTCalibrationPlan.png}
+\end{frame}
+
+
+\section{Simulation of the photometric corrections}
+\subsection{The zero's order of the photometric correction}
+%====================================================================
+\begin{frame}
+\begin{alertblock}{relative to the standard transmission}
+\begin{equation}
+\mathbb{I}^{obs}_{0}(b,z) - \mathbb{I}^{std}_{0}(b,z_{std})
+\end{equation}
+\end{alertblock}
+\end{frame}
+%====================================================================
 
 %==========================================================================================================================
 \begin{frame}
