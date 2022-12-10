@@ -1,0 +1,129 @@
+% Copyright 2007 by Till Tantau
+% Copyright 2012,2015 by Vedran Mileti\'c, Joseph Wright
+% Copyright 2017,2018 by Louis Stuart, Joseph Wright
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+% See the file doc/licenses/LICENSE for more details.
+
+\mode<presentation>
+
+\setbeamercolor*{page number in head/foot}{fg=white}
+\setbeamercolor*{date in head/foot}{fg=white}
+\setbeamercolor*{title in head/foot}{fg=white}
+\setbeamercolor*{author in head/foot}{fg=white}
+
+\setbeamercolor{frametitle}{fg=darkblueIJCLab}
+
+\setbeamercolor*{section in head/foot}{parent=palette tertiary}
+\setbeamercolor*{subsection in head/foot}{parent=palette primary}
+
+\setbeamertemplate{page number in head/foot}[totalframenumber]%
+
+\pgfdeclarehorizontalshading{beamer@footlinefade1}{0.06in}
+  {%
+    color(0cm)=(orangeIJCLab);
+    color(\paperwidth)=(orangeIJCLab)%
+  }
+  \pgfdeclarehorizontalshading{beamer@footlinefade2}{0.11in}
+  {%
+    color(0cm)=(orangeIJCLab);
+    color(0.3333\paperwidth)=(orangeIJCLab!50!white);
+    color(0.6666\paperwidth)=(orangeIJCLab);
+    color(\paperwidth)=(orangeIJCLab!50!white)%
+  }
+
+\defbeamertemplate*{footline}{banner}
+{%
+\
+  \leavevmode%
+ \vskip-0.38in  
+\pgfuseshading{beamer@footlinefade1}\pgfuseshading{beamer@footlinefade2}\pgfuseshading{beamer@footlinefade1}\vskip-0.37in  
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=0.28in,dp=1ex,center]{}%
+   \usebeamercolor[fg]{author in head/foot} \usebeamerfont{author in head/foot}\insertshortauthor\expandafter\ifblank\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=0.28in,dp=1ex,center]{}%
+   \usebeamercolor[fg]{title in head/foot}  \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=0.28in,dp=1ex,right]{}%
+    \usebeamercolor[fg]{date in head/foot}
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+   \usebeamercolor[fg]{page number in head/foot}\usebeamerfont{page number in head/foot}\usebeamertemplate{page number in head/foot}\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0.04in
+}
+
+
+
+\pgfdeclareimage[height=0.44in]{logo-IJCLab-i-seul}{beamerouterthemeIJCLab-fig/logo-IJCLab-i-seul}
+
+\pgfdeclarehorizontalshading{beamer@headfade1}{0.12in}
+  {%
+    color(0cm)=(white);
+    color(\paperwidth)=(lightblueIJCLab)%
+  }
+  \pgfdeclarehorizontalshading{beamer@headfade2}{0.22in}
+  {%
+    color(0cm)=(white);
+    color(\paperwidth)=(lightblueIJCLab!70)%
+  }
+
+\defbeamertemplate*{headline}{banner}
+{
+\pgfuseshading{beamer@headfade1}\pgfuseshading{beamer@headfade2}\pgfuseshading{beamer@headfade1}\vskip-0.25in
+}
+
+\pgfdeclareimage[height=0.18in]{bloc-tutelles-horizontal-blanc}{beamerouterthemeIJCLab-fig/bloc-tutelles-horizontal-blanc}
+
+\pgfdeclareimage[height=0.70in]{logo-ijclab-portail}{beamerouterthemeIJCLab-fig/logo-ijclab-portail}
+
+
+\defbeamertemplate*{title page}{customized}
+{
+\begin{textblock}{1}(-0.042,0.097)
+  \hbox{%
+  \begin{beamercolorbox}[wd=.10\paperwidth,ht=2.65ex,dp=1.5ex,left]{}%
+ \pgfuseimage{logo-ijclab-portail}
+     \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.80\paperwidth,ht=2.65ex,dp=1.5ex,left]{frametitle}%
+ \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.10\paperwidth,ht=2.65ex,dp=1.5ex,left]{}%
+\pgfuseimage{bloc-tutelles-horizontal-blanc}\vskip0.34in
+  \end{beamercolorbox}}
+
+\end{textblock}
+
+\bigskip
+
+\begin{center}
+  \usebeamerfont{title}\inserttitle\par
+  \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par
+  \bigskip
+  \usebeamerfont{author}\insertauthor\par
+    \bigskip
+  \usebeamerfont{institute}\insertinstitute\par
+   \usebeamercolor[fg]{titlegraphic}\inserttitlegraphic
+       \bigskip
+  \usebeamerfont{date}\insertdate
+  \end{center}
+}
+
+\setbeamertemplate{frametitle}
+{
+       \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.10\paperwidth,ht=2.65ex,dp=1.5ex,left]{}%
+  \pgfuseimage{logo-IJCLab-i-seul}
+     \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.72\paperwidth,ht=2.65ex,dp=1.5ex,left]{frametitle}%
+\strut\insertframetitle\strut\vskip0.085in
+  \end{beamercolorbox}}
+  \vskip-0.3in%
+}
+
+\mode
+<all>
