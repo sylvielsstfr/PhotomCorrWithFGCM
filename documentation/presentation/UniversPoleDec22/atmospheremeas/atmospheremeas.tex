@@ -62,47 +62,25 @@ Jeremy Neveu
 
 
 
-\begin{frame}
-\begin{columns}[T] % align columns
-\begin{column}{.48\textwidth}
-\color{red}\rule{\linewidth}{4pt}
-
-\begin{eqnarray}
-m_b^{std} & = &  -2.5 \log_{10}(C_b^{obs}) \nonumber \\ 
-& & + 2.5 \log_{10}\left(\mathbb{I}_0^{obs}(b)\right) \nonumber \\
-& & + ZPT^{AB}   \nonumber \\
-& & + 2.5 \log_{10} 
-	\left( 
-	\frac{\int_0^\infty F_\nu(\lambda) \times \phi_b^{obs}(\lambda) d\lambda }{\int_0^\infty F_\nu(\lambda) \times \phi_b^{std}(\lambda) d\lambda} 
-	\right)
-\end{eqnarray}
-
-
-\end{column}%
-\hfill%
-\begin{column}{.48\textwidth}
-\color{blue}\rule{\linewidth}{4pt}
-
-Right Part
-\end{column}%
-\end{columns}
+%==================================================================================================================================
+\begin{frame}{Motivations}
+\begin{itemize}
+\item Sources/Object standard magnitude estimation from instrumental magnitude $\rightarrow$ allowing coaddition of sigle epoch measurements
+\item use of time dependent epoch transmissions (instrument + atmosphere)
+\item photometric correction depending on poorly known objects SED
+\item to be implemented inside DM Rubin-LSST science pipelines 
+\item participation of DESC technical groups (SAWG,PCWG,PSF), namely during commissioning phase,
+\item need participation of Science groups (PhotoZ, and objects groups like SN, and other astrophysical groups),
+\end{itemize}
 \end{frame}
+%==================================================================================================================================
 
-
-\begin{frame}
-
-$$
-\begin{array}{lcl c r}
-m_b^{std} & = &  -2.5 \log_{10}(ADU_b^{obs}) & \longrightarrow &  \\ 
-& & + 2.5 \log_{10}\left(\mathbb{I}_0^{obs}(b)\right) & \longrightarrow \\
-& & + ZPT^{AB}   \nonumber \\
-& & + 2.5 \log_{10} 
-	\left( 
-	\frac{\int_0^\infty F_\nu(\lambda) \times \phi_b^{obs}(\lambda) d\lambda }{\int_0^\infty F_\nu(\lambda) \times \phi_b^{std}(\lambda) d\lambda} 
-	\right)
-\end{array}
-$$
+%==================================================================================================================================
+\begin{frame}{Outline}
+  \tableofcontents
 \end{frame}
+%==================================================================================================================================
+
 
 % see example https://tex.stackexchange.com/questions/62902/text-column-in-array
 % Define a text column environnement
@@ -119,8 +97,8 @@ $$
 %\end{equation*}
 %\end{frame}
 
-
-\begin{frame}{Magnitude calibration of astronomical objects}
+%=================================================================================================================================
+\begin{frame}{Magnitude calibration of astronomical objects}<presentation:0>
 \begin{alertblock}{Single visit object magnitude to be coadded in band $b$}
 \begin{equation*}
     \begin{array}{l@{{}{}}c c@{\quad}L}
@@ -144,281 +122,84 @@ zero point link to AB-flux unit/CCD : & ZPT^{AB}_{obs} & \equiv & 2.5 \log_{10} 
 \end{equation*}
 \end{block}
 \begin{itemize}
-\item Total transmission : $S_b^{obs}(\lambda) = S^{atm}(\lambda) \times S_b^{inst}(\lambda)$
+\item Total observation transmission : $S_b^{obs}(\lambda) = S^{atm}(\lambda) \times S_b^{inst}(\lambda)$
 \item Normalized passband : $\phi_b^{obs} (\lambda,t) = \frac{S_b^{obs}(\lambda,t)\frac{1}{\lambda}}{\int_0^\infty S^{obs}_b(\lambda,t) \frac{d\lambda}{\lambda}}$
 \end{itemize}
 }
 \end{frame}
-
-
-%==================================================================================================================================
-\begin{frame}{Motivations}
-\begin{itemize}
-\item Sources/Object standard magnitude estimation from instrumental magnitude $\rightarrow$ allowing coaddition of sigle epoch measurements
-\item use of time dependent epoch transmissions (instrument + atmosphere)
-\item photometric correction depending on poorly known objects SED
-\item to be implemented inside DM Rubin-LSST science pipelines 
-\item participation of DESC technical groups (SAWG,PCWG,PSF), namely during commissioning phase,
-\item need participation of Science groups (PhotoZ, and objects groups like SN, and other astrophysical groups),
-\end{itemize}
-\end{frame}
-%==================================================================================================================================
-
-%==================================================================================================================================
-\begin{frame}{Outline}
-  \tableofcontents
-\end{frame}
-%==================================================================================================================================
-
-
-
-
-\section{Key formula, definitions and notations}
-\subsection{Instrumental Flux}
-
-%==================================================================================================================================
-\begin{frame}{Instrumental Flux}
-\begin{alertblock}{Photometric flux of a source}
-	\begin{equation}
-	ADU_b = \frac{A\Delta T}{gh}\int_0^\infty F_\nu(\lambda) \times S_b^{obs}(\lambda,x,y,az,alt,t) \frac{d\lambda}{\lambda}
-	\end{equation}
-	\begin{itemize}
-	\item $ADU_b$ : ADU count of a source measured by photometry in band $b$
-	\item $F_\nu$ : SED in ${\rm erg/cm^2/Hz/s}$
-	\item $S_b^{obs}$ : Observation transmission in band $b$(atmosphere + instrument)
-	\item $A$ : Collection efficiency in ${\rm cm^2}$
-	\item $g$ : Electronic gain in ${\rm e^-/ADU}$
-	\item $\Delta T$ : Exposure time
-	\item $h$ : Planck constant
-	\end{itemize}
-	\end{alertblock}	
-\end{frame}
 %=================================================================================================================================
 
 
-\subsection{Observed Magnitude}
 %=================================================================================================================================
-\begin{frame}{Observed Magnitude}
-\begin{alertblock}{Observed Magnitude of a source}
-	\begin{equation}
-	m^{obs}_b = -2.5 \log_{10}\left( 
-	\frac{\int_0^\infty F_\nu(\lambda) \times S_b^{obs}(\lambda,x,y,az,alt,t) \frac{d\lambda}{\lambda} }{\int_0^\infty F^{AB} \times S_b^{obs}(\lambda,x,y,az,alt,t) \frac{d\lambda}{\lambda}} 
-	\right)
-	\end{equation}
-	\begin{itemize}
-	\item $m^{obs}_b$ : observed magnitude in band $b$
-	\item $F_\nu$ : SED in ${\rm erg/cm^2/Hz/s}$
-	\item $F^{AB}=3631 Jy$ : Flat SED with $1 Jy = 10^{-23} {\rm erg/cm^2/Hz/s}$
-	\item $S_b^{obs}$ : Observation transmission in band $b$  (atmosphere + instrument)
-	\end{itemize}
-	\end{alertblock}	
-In the above formula gives how the physics provides $m_b^{obs}$. However usually the $F_\nu(\lambda)$ of an object is unknown.	
-Note $m^{obs}_b$ is defined independently of any reference to a standard magnitude.
-\end{frame}
-%========================================================================================================================
-
-
-
-%========================================================================================================================
-\begin{frame}{Natural magnitude in Rubin-LSST}
-Rubin-LSST usually use the concept of normalized passband
-\begin{alertblock}{normalized bandpass response function}
-\begin{equation}
-\phi_b^{obs} (\lambda,t) = \frac{S_b^{obs}(\lambda,t)\frac{1}{\lambda}}{\int_0^\infty S^{obs}_b(\lambda,t) \frac{d\lambda}{\lambda}}
-\end{equation}
-\end{alertblock}
-\begin{block}{Observed flux}
-\begin{equation}
-F_b^{obs} = \int_0^\infty F_\nu(\lambda) \phi_b^{obs}(\lambda) d\lambda
-\end{equation}
-\end{block}
-\begin{exampleblock}{Natural magnitude}
-\begin{equation}
-m_b^{nat} = -2.5 \log_{10} \left( \frac{F_b^{obs}}{F^{AB}}\right)
-\end{equation}
-\end{exampleblock}
-The natural magnitude $m_b^{nat}$ is similar to  the observed magnitude $m_b^{obs}$
-\end{frame}
-%=========================================================================================================================
-
-
-
-%========================================================================================================================
-\begin{frame}{Decomposition of observed Magnitude} 
-The observed magnitude is estimated from the measured ADU counts rate $C_b=ADU_b/\Delta T$ in filter $b$
-\begin{alertblock}{}
-\begin{equation}
-m^{obs}_b = -2.5 \log_{10}(C_b)+ 2.5 \log_{10}\left(\mathbb{I}_0^{obs}(b)\right) + ZPT^{AB}
-\end{equation}	
-\end{alertblock}	
-However the two following quantities which depend on atmospheric + detectors conditions must be estimated by calibration. 
-\begin{block}{Calibration quantities:}
-\begin{eqnarray}
-\mathbb{I}_0^{obs}(b) & \equiv & \int_0^\infty S^{obs}_b(\lambda) \frac{d\lambda}{\lambda} \\
-ZPT^{AB} & \equiv & 2.5 \log_{10} \left( \frac{A F^{AB}}{gh}\right)
-\end{eqnarray} 
-\end{block}
-
-\end{frame}
-%==========================================================================================================================
-
-%==========================================================================================================================
-\begin{frame}{Zero point} 
-Note sometimes one defines the zero point as the magnitude $m_b^{obs}$, such $ADU_b/\Delta T = 1$ count per sec, then
-\begin{equation}
-m^{obs}_b(ZP) \equiv 2.5\log_{10}\left( \mathbb{I}_0^{obs}(b)\right) + ZPT^{AB}
-\end{equation}	
-\begin{itemize}
-\item the zero point is common to all sources whatever their color is 
-\item it has a time  dependent and passband $b$ dependent component : $2.5\log_{10}\left( \mathbb{I}_0^{obs}(b)\right)$
-\item it has a detector (CCD) dependent component :  $ZPT^{AB}$ through the relative electronic gain $g$, (independent of the passband $b$ ?, long time-scale dependence (night) ?)
-\end{itemize}
-\end{frame}
-%==========================================================================================================================
-
-
-
-\subsection{Standard Magnitude}
-%==========================================================================================================================
-\begin{frame}{Standard Magnitude} 
-Standard magnitude is the magnitude to be published with the standard passband. 
-It must be calculated from the observed magnitude.
-\begin{alertblock}{Standard magnitude in standard passband}
-	\begin{equation}
-	m^{std}_b = -2.5 \log_{10}
-	\left( 
-	\frac{\int_0^\infty F_\nu(\lambda) \times S_b^{std}(\lambda) \frac{d\lambda}{\lambda} }{\int_0^\infty F^{AB} \times S_b^{std}(\lambda) \frac{d\lambda}{\lambda}} 
-	\right)
-	\end{equation}	
-\end{alertblock}	
-
-\begin{eqnarray}
-\delta^{std}_b & \equiv & m_b^{std} - m_b^{obs} \\
-& \equiv & 2.5 \log_{10}\left( \frac{\mathbb{I}_0^{std}(b)}{\mathbb{I}_0^{obs}(b)}\right) 
-+ 2.5 \log_{10} 
-	\left( 
-	\frac{\int_0^\infty F_\nu(\lambda) \times S_b^{obs}(\lambda) \frac{d\lambda}{\lambda} }{\int_0^\infty F_\nu(\lambda) \times S_b^{std}(\lambda) \frac{d\lambda}{\lambda}} 
-	\right)
-\end{eqnarray} 
-\end{frame}
-%==========================================================================================================================
-
-%==========================================================================================================================
-\begin{frame}{Standard magnitude in Rubin-LSST}
-\begin{alertblock}{standard magnitude}
-\begin{eqnarray}
-m_b^{std} & = & m_b^{nat} + \Delta m_b^{obs} \\
-\Delta m_b^{obs} & = & 2.5 \log_{10} \frac{\int_0^\infty F_\nu(\lambda) \phi_b^{obs}(\lambda) d\lambda}{\int_0^\infty F_\nu(\lambda) \phi_b^{std}(\lambda) d\lambda}
-\end{eqnarray}
-\end{alertblock}
-\begin{block}{}
-{\small
-\begin{eqnarray}
-\Delta m_b^{obs} = \delta_b^{std} & = & 2.5 \log_{10}\left( \frac{\mathbb{I}_0^{std}(b)}{\mathbb{I}_0^{obs}(b)}\right) 
-+ 2.5 \log_{10} 
-	\left( 
-	\frac{\int_0^\infty F_\nu(\lambda) \times S_b^{obs}(\lambda) \frac{d\lambda}{\lambda} }{\int_0^\infty F_\nu(\lambda) \times S_b^{std}(\lambda) \frac{d\lambda}{\lambda}} 
-	\right) \nonumber \\
-& = & 	2.5 \log_{10} 
-	\left( 
-	\frac{\int_0^\infty F_\nu(\lambda) \times \phi_b^{obs}(\lambda) d\lambda}{\int_0^\infty F_\nu(\lambda) \times \phi_b^{std}(\lambda) d\lambda} 
-	\right) \nonumber	
-\end{eqnarray}
-}
-\end{block}
-\end{frame}
-%==========================================================================================================================
-
-
-
-
-%==========================================================================================================================
-\begin{frame}{Zero Point in Rubin-LSST}
-\begin{exampleblock}{Zero point definition}
-\begin{eqnarray}
-m_b^{std} & = & -2.5 \log_{10}(C_b^{obs}) + \Delta m_b^{obs} + Z_b^{obs}
-\end{eqnarray}
-with $C_b^{obs} = ADU_b/\Delta T$
-\end{exampleblock}
-\begin{alertblock}{Correspondence of Zero point in Rubin-DES}
-\begin{equation}
-Z_b^{obs} = 2.5\log_{10}\left(\mathbb{I}_0^{obs}(b)\right) + ZPT^{AB}
-\end{equation}
-\end{alertblock}
-\end{frame}
-%==========================================================================================================================
-
-
-%==========================================================================================================================
-\begin{frame}{Interpretable standard magnitude expression}
-\begin{alertblock}{option A : with zero point as unit counting rate}
-\begin{eqnarray}
-m_b^{std} & = &  -2.5 \log_{10}(C_b^{obs})+ 2.5 \log_{10}\left(\frac{\mathbb{I}_0^{std}(b)}{\mathbb{I}_0^{obs}}\right) + m_b^{obs}(ZPT)   \nonumber \\
- & & + 2.5 \log_{10} 
-	\left( 
-	\frac{\int_0^\infty F_\nu(\lambda) \times S_b^{obs}(\lambda) \frac{d\lambda}{\lambda} }{\int_0^\infty F_\nu(\lambda) \times S_b^{std}(\lambda) \frac{d\lambda}{\lambda}} 
-	\right)
-\end{eqnarray}
-\end{alertblock}
-\begin{itemize}
-\item $-2.5 \log_{10}(C_b^{obs})$ : measured instrumnetal aperture photometric term (ADU rate)
-\item $2.5 \log_{10}\left(\frac{\mathbb{I}_0^{std}(b)}{\mathbb{I}_0^{obs}}\right)$ : SED color free correction term for atmospheric transparency standard/observed
-\item $m_b^{obs}(ZPT)$ :  SED color free observed magnitude Zero Point correction term at CCD level,
-\item $2.5 \log_{10} 
-	\left( 
-	\frac{\int_0^\infty F_\nu(\lambda) \times S_b^{obs}(\lambda) \frac{d\lambda}{\lambda} }{\int_0^\infty F_\nu(\lambda) \times S_b^{std}(\lambda) \frac{d\lambda}{\lambda}}\right)$ : SED color dependent term correction
-\end{itemize}
-\end{frame}
-%============================================================================================
-
-
-
-
-%==========================================================================================================================
-\begin{frame}{Interpretable standard magnitude expression}
-\begin{alertblock}{option B : with zero point as constants}
-\begin{eqnarray}
-m_b^{std} & = &  -2.5 \log_{10}(C_b^{obs})+ 2.5 \log_{10}\left(\mathbb{I}_0^{std}(b)\right) + ZPT^{AB}   \nonumber \\
- & & + 2.5 \log_{10} 
-	\left( 
-	\frac{\int_0^\infty F_\nu(\lambda) \times S_b^{obs}(\lambda) \frac{d\lambda}{\lambda} }{\int_0^\infty F_\nu(\lambda) \times S_b^{std}(\lambda) \frac{d\lambda}{\lambda}} 
-	\right)
-\end{eqnarray}
-\end{alertblock}
-\begin{itemize}
-\item $-2.5 \log_{10}(C_b^{obs})$ : measured instrumental aperture photometric term (ADU rate)
-\item $2.5 \log_{10}\left(\mathbb{I}_0^{std}(b)\right)$ : Calculable constant
-\item $ZPT^{AB} = \frac{A F^{AB}}{gh}$ :  SED color free observed magnitude Zero Point correction term at CCD level (electronic gain),
-\item $2.5 \log_{10} 
-	\left( 
-	\frac{\int_0^\infty F_\nu(\lambda) \times S_b^{obs}(\lambda) \frac{d\lambda}{\lambda} }{\int_0^\infty F_\nu(\lambda) \times S_b^{std}(\lambda) \frac{d\lambda}{\lambda}}\right)$ : SED color dependent term correction
-\end{itemize}
-\end{frame}
-%============================================================================================
-
-
-
-%==========================================================================================================================
-\begin{frame}{Interpretable standard magnitude expression}
-\begin{alertblock}{option C : using normalized passband}
-\begin{eqnarray}
-m_b^{std} & = &  -2.5 \log_{10}(C_b^{obs})+ 2.5 \log_{10}\left(\mathbb{I}_0^{obs}(b)\right) + ZPT^{AB}   \nonumber \\
- & & + 2.5 \log_{10} 
+\begin{frame}{Magnitude calibration of astronomical objects}
+\begin{alertblock}{Single visit object magnitude to be coadded in band $b$}
+\begin{equation*}
+    \begin{array}{l@{{}{}}c c@{\quad}L}
+               m_b^{std} =   & -2.5 \log_{10}(ADU_b^{obs}) & \longrightarrow  & ADU photometric counts     \\
+                & +  2.5 \log_{10}\left(\frac{\mathbb{I}_0^{obs}(b)}{\mathbb{I}_0^{std}(b)}\right)  &\longrightarrow  &  {\color{red}0th order transmission term} \\
+                 & + ZPT^{AB}_{obs} + 2.5 \log_{10}\left(\mathbb{I}_0^{std}(b)\right) & \longrightarrow & Zero Point magnitude \\
+                 &  +  2.5 \log_{10} 
 	\left( 
 	\frac{\int_0^\infty F_\nu(\lambda) \times \phi_b^{obs}(\lambda) d\lambda }{\int_0^\infty F_\nu(\lambda) \times \phi_b^{std}(\lambda) d\lambda} 
-	\right)
-\end{eqnarray}
+	\right) & \longrightarrow & {\color{blue}SED Color correction term}
+    \end{array}
+\end{equation*}
+\end{alertblock}
+{\footnotesize
+\begin{block}{Calibration quantities for each observation:}
+\begin{equation*}
+\begin{array}{L@{\quad}ccc}
+transmission integral : & \mathbb{I}_0^{obs}(b) & \equiv & \int_0^\infty S^{obs}_b(\lambda) \frac{d\lambda}{\lambda} \\
+zero point link to AB-flux unit/CCD : & ZPT^{AB}_{obs} & \equiv & 2.5 \log_{10} \left( \frac{A \Delta T F^{AB}}{gh}\right)
+\end{array} 
+\end{equation*}
+\end{block}
+\begin{itemize}
+\item Total transmission : $S_b^{obs}(\lambda) = S^{atm-obs}(\lambda) \times S_b^{inst-obs}(\lambda)$
+\item Normalized passband : $\phi_b^{c=obs,std} (\lambda,t) = \frac{S_b^{c}(\lambda,t)\frac{1}{\lambda}}{\int_0^\infty S^{c}_b(\lambda,t) \frac{d\lambda}{\lambda}}$
+\end{itemize}
+}
+\end{frame}
+%========================================================================================================================
+
+%========================================================================================================================
+\begin{frame}{Magnitude corrections for non standard obs}
+\begin{itemize}
+\item standard transmission, standard atmosphere at airmass $z=z_{std}$
+\item observed transmission, standard atmosphere at airmass $z_{obs} \ne z_{std}$
+\end{itemize}
+
+\begin{columns}
+\begin{column}{0.3\textwidth}
+SED-color independent correction :\\ only air transmission and telescope throughput
+\end{column}
+\begin{column}{0.65\textwidth}  %%<--- here
+%\centering
+    \includegraphics[width=8cm,angle=0]{figs/PCCorr/PCCorrOrder0th_airmass.png}
+\end{column}
+\end{columns}
+   
+\end{frame}
+%========================================================================================================================
+
+
+
+\begin{frame}{Relative ratio of integrals}
+Focusing on atmosphere component variations defined as
+$\theta^{atm}= PWV, O_3, aerosols$
+\begin{alertblock}{}
+\begin{equation*}
+\left(\frac{\mathbb{I}_0^{obs}(b,z_{obs},\theta_{obs}^{atm})}{\mathbb{I}_0^{std}(b,z_{std},\theta_{std}^{atm})}\right) =
+\underbrace{\left(\frac{\mathbb{I}_0^{obs}(b,z_{obs},\theta_{obs}^{atm})}{\mathbb{I}_0^{std}(b,z_{obs},\theta_{std}^{atm})}\right)}_{1:ratio\;at \; same \; z_{obs}\; \& \; \neq \; \theta^{atm}} \times \underbrace{\left(\frac{\mathbb{I}_0^{std}(b,z_{obs},\theta_{std}^{atm})}{\mathbb{I}_0^{std}(b,z_{std},\theta_{std}^{atm})}\right)}_{2:calculable \; ratio \;at \; z_{obs}\neq z_{std} }
+\end{equation*}
 \end{alertblock}
 \begin{itemize}
-\item $-2.5 \log_{10}(C_b^{obs})$ : measured instrumental aperture photometric term (ADU rate)
-\item $2.5 \log_{10}\left(\mathbb{I}_0^{obs}(b)\right)$ : order 0 correction : measured variable absorption in the band $b$ (compensate $C_b^{obs}$)
-\item $ZPT^{AB} = \frac{A F^{AB}}{gh}$ :  SED color free observed magnitude Zero Point correction term at CCD level (electronic gain),
-\item $2.5 \log_{10} 
-	\left( 
-	\frac{\int_0^\infty F_\nu(\lambda) \times \phi_b^{obs}(\lambda) d\lambda}{\int_0^\infty F_\nu(\lambda) \times \phi_b^{std}(\lambda) d\lambda}\right)$ : SED color dependent term correction
+\item 1 : $\left(\frac{\mathbb{I}_0^{obs}(b,z_{obs},\theta_{obs}^{atm})}{\mathbb{I}_0^{std}(b,z_{obs},\theta_{std}^{atm})}\right)$ : numerator obtained by the {\bf measurement of atmospheric transmission for each exposure}, denominator calculated at observation $z_{obs}$ (small corrections at ~10 mmag level),
+\item 2 : $\left(\frac{\mathbb{I}_0^{std}(b,z_{obs},\theta_{std}^{atm})}{\mathbb{I}_0^{std}(b,z_{std},\theta_{std}^{atm})}\right)$ : calculable ratio assuming knowledge of atmospheric model (large corrections at ~100 mmag level). 
 \end{itemize}
+
+
 \end{frame}
-%============================================================================================
 
 
 
