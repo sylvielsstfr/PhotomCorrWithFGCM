@@ -473,6 +473,94 @@ f_\nu^{\prime\prime}(\lambda)  \equiv  \frac{1}{F_\nu(\lambda)}\frac{d^2F_\nu(\l
 %==========================================================================================================================
 
 
+\subsection{What is FGCM  in DES\&LSST ?}
+%================================================================================================================
+\begin{frame}{Forward Global Calibration Model {\small (DES\& LSST)}}
+\begin{itemize}
+\item From a reference catalog of calibration stars $j$ wih known $\overline{m_b^{std}(j)}$
+\item Optimize the following $\chi^2$ in band $b$ ($i$ exposure, $j$ star-object, $\sigma_{phot}(i,j)$, photometric error):
+\begin{equation} 
+\chi^2_b = 
+\sum_{(i,j)} \frac{ \left(m_b^{std}(i,j) - \overline{m_b^{std}(j)} \right)^2}{\sigma_{phot}^2(i,j)}
+\end{equation}
+\item With the measured magnitude in LSST is~:
+\begin{eqnarray}
+m_b^{std}(i,j) & = & -2.5\log_{10}(C_b^{i,j}) +2.5\log_{10}(\mathbb{I}_0^{obs,i}(b)) +ZPT^{AB}(i)  \nonumber \\
+& + & 2.5 \log_{10}\left( \frac{1+f_\nu^{\prime}(\lambda_b)(b)\mathbb{I}_{10}^{obs,i}(b)}{1+f_\nu^{\prime}(\lambda_b)(b)\mathbb{I}_{10}^{std}(b)}\right)
+\end{eqnarray}
+\end{itemize}
+\end{frame}
+%================================================================================================================
+
+
+%===============================================================================================================
+\section{LSST Rubin science pipelines}
+\begin{frame}{Rubin-LSST science pipeline}
+\includegraphics[width=12cm, height=12cm]{figs/dm/DMpipelines1.png}
+\end{frame}
+
+\begin{frame}{Rubin-LSST science pipeline}
+\begin{tabular}{cc}
+\includegraphics[width=6cm, height=3.5cm]{figs/dm/DMpipelines11.png}
+&
+\includegraphics[width=6cm, height=8cm]{figs/dm/DMpipelines2.png}
+\end{tabular}
+\end{frame}
+
+\begin{frame}{Rubin-LSST calibration plan}
+\includegraphics[width=12cm, height=8cm]{figs/calib/LSSTCalibrationPlan.png}
+\end{frame}
+
+
+\section{Simulation of the photometric corrections}
+
+\subsection{Atmospheric simulation and $S_b^{obs}$}
+%====================================================================
+\begin{frame}{Atmospheric simulation and $S_b^{obs}$}
+\begin{tabular}{cc}
+\includegraphics[width=5.9cm, height=3.5cm]{figs/atmsimu/atmsimvsairmass.png} & \includegraphics[width=5.9cm, height=3.5cm]{figs/atmsimu/trb_vs_airmass.png} \\
+\includegraphics[width=5.9cm, height=3.5cm]{figs/atmsimu/trb_vs_VAOD.png} & \includegraphics[width=5.9cm, height=3.5cm]{figs/atmsimu/trb_vs_PWV.png}
+\end{tabular}
+\end{frame}
+%====================================================================
+
+
+\subsection{The zero's order of the photometric correction}
+%====================================================================
+\begin{frame}{The $0^{th}$ order of the photometric correction}
+\begin{alertblock}{vs airmass, relative to the standard transmission}
+\begin{equation}
+\mathbb{I}^{obs}_{0}(b,z) - \mathbb{I}^{std}_{0}(b,z_{std})
+\end{equation}
+\end{alertblock}
+\includegraphics[width=10cm, height=5cm]{figs/Integrals_II/Integrals_II0_vs_airmass.png}
+\end{frame}
+%====================================================================
+
+
+%====================================================================
+\begin{frame}{The $0^{th}$ order of the photometric correction}
+\begin{alertblock}{vs aeorols or PWV, relative to the standard transmission}
+\begin{equation}
+\mathbb{I}^{obs}_{0}(b,z_{std}) - \mathbb{I}^{std}_{0}(b,z_{std})
+\end{equation}
+\end{alertblock}
+\begin{tabular}{cc}
+\includegraphics[width=5.9cm, height=4cm]{figs/Integrals_II/Integrals_II0_vs_VAOD.png} & \includegraphics[width=5.9cm, height=4cm]{figs/Integrals_II/Integrals_II0_vs_PWV.png}
+\end{tabular}
+\end{frame}
+%====================================================================
+
+\subsection{The 1st and 2nd orders Integral differences}
+%====================================================================
+\begin{frame}{The $1^{st}$\&$2^{nd}$ orders Integral differences}
+
+\begin{tabular}{cc}
+\includegraphics[width=5.9cm, height=4cm]{figs/Integrals_II/Integrals_II10_vs_airmass.png} & \includegraphics[width=5.9cm, height=4cm]{figs/Integrals_II/Integrals_II20_vs_airmass.png}
+\end{tabular}
+\end{frame}
+%====================================================================
+
 
 %==========================================================================================================================
 \begin{frame}
