@@ -27,6 +27,16 @@
 \usepackage[T1]{fontenc}
 
 
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+
+
 % Author, Title, etc.
 
 \title[FGCM Simulation]{\large Review of the Forward Global Photometric Calibrationn\\
@@ -47,8 +57,12 @@ Sylvie Dagoret-Campagne,Marc Moniez, Martin Rodriguez Monroy, Joseph Chevalier,}
 \date[IJCLab, Dec 16th 2022]{DESC PCWG, December 16th 2022}
 
 
-% The main document with a few examples
 
+
+
+
+% The main document with a few examples
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
 %==================================================================================================================================
@@ -115,9 +129,10 @@ Sylvie Dagoret-Campagne,Marc Moniez, Martin Rodriguez Monroy, Joseph Chevalier,}
 
 
 
-
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Photometric correction for standard magnitude}
+\begin{frame}\sectionpage\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %=================================================================================================================================
@@ -155,7 +170,7 @@ zero point link to AB-flux unit/CCD : & ZPT^{AB}_{obs} & \equiv & 2.5 \log_{10} 
 
 
 
-
+% Slide 2
 %=================================================================================================================================
 \begin{frame}{Interpretation of correction terms to $m_{std}$}
 {\footnotesize
@@ -189,9 +204,13 @@ d)&constant term/band : & Calculated & $2.5 \log_{10}\left(\mathbb{I}_0^{std}(b)
 }
 
 \end{frame}
-
 %========================================================================================================================
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Order 0 band correction term}
+\begin{frame}\sectionpage\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
@@ -215,6 +234,65 @@ $\theta^{atm}= PWV, O_3, aerosols$
 %========================================================================================================================
 
 
+
+
+%========================================================================================================================
+%\begin{frame}{Order 0 magnitude corrections at different airmass}
+%\begin{itemize}
+%\item standard transmission, standard atmosphere at airmass $z=z_{std}$
+%\item observed transmission, standard atmosphere at airmass $z_{obs} \ne z_{std}$
+%\end{itemize}
+
+%\begin{columns}
+%\begin{column}{0.6\textwidth}
+%\includegraphics[width=8cm,angle=0]{figs/PCCorr/fig1_PCCorrOrder0th_airmass.png}
+%\end{column}
+%\begin{column}{0.4\textwidth}  %%<--- here
+%\centering
+%\includegraphics[width=4cm,angle=0]{figs/PCCorr/fig2_PCCorrOrder0th_airmass.png}
+%\end{column}
+%\end{columns}  
+%\end{frame}
+%========================================================================================================================
+
+%========================================================================================================================
+\begin{frame}{Order corrections at different airmass}
+
+\begin{tabular}{cc}
+\includegraphics[width=6cm,height=6.5cm,angle=0]{figs/PCCorr/fig1_PCCorrOrder0th_airmass.png} &
+\includegraphics[width=5.5cm,height=4cm,angle=0]{figs/PCCorr/fig2_PCCorrOrder0th_airmass.png}
+\end{tabular}
+\end{frame}
+%========================================================================================================================
+
+%========================================================================================================================
+\begin{frame}{Order corrections at different PWV}
+
+\begin{tabular}{cc}
+\includegraphics[width=6cm,height=6.5cm,angle=0]{figs/PCCorr/fig1_PCCorrOrder0th_PWV.png} &
+\includegraphics[width=5.5cm,height=6cm,angle=0]{figs/PCCorr/fig2_PCCorrOrder0th_PWV.png}
+\end{tabular}
+\end{frame}
+%========================================================================================================================
+
+
+%========================================================================================================================
+\begin{frame}{Order corrections at different VAOD}
+
+\begin{tabular}{cc}
+\includegraphics[width=6cm,height=6.5cm,angle=0]{figs/PCCorr/fig1_PCCorrOrder0th_aer.png} &
+\includegraphics[width=5.5cm,height=6cm,angle=0]{figs/PCCorr/fig2_PCCorrOrder0th_aer.png}
+\end{tabular}
+\end{frame}
+%========================================================================================================================
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Order 1 Color correction term}
+\begin{frame}\sectionpage\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
@@ -303,27 +381,6 @@ f_\nu^{\prime\prime}(\lambda)  \equiv  \frac{1}{F_\nu(\lambda)}\frac{d^2F_\nu(\l
 
 
 
-
-
-%========================================================================================================================
-\begin{frame}{Magnitude corrections for non standard obs}
-\begin{itemize}
-\item standard transmission, standard atmosphere at airmass $z=z_{std}$
-\item observed transmission, standard atmosphere at airmass $z_{obs} \ne z_{std}$
-\end{itemize}
-
-\begin{columns}
-\begin{column}{0.3\textwidth}
-SED-color independent correction :\\ only air transmission and telescope throughput
-\end{column}
-\begin{column}{0.65\textwidth}  %%<--- here
-%\centering
-    \includegraphics[width=8cm,angle=0]{figs/PCCorr/PCCorrOrder0th_airmass.png}
-\end{column}
-\end{columns}
-   
-\end{frame}
-%========================================================================================================================
 
 
 
