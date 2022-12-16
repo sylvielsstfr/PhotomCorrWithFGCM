@@ -1,0 +1,497 @@
+% Copyright 2022 by Sébastien Descotes-Genon
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+
+
+\documentclass{beamer}
+
+\usepackage{array,amsmath}
+\newcolumntype{L}{>$l<$}
+\usepackage{hyperref}
+
+
+% Setup appearance:
+
+\usetheme{IJCLab}
+
+\pgfdeclareimage[height=2cm]{LogoIJCLab}{example-fig/LogoIJCLab}
+\pgfdeclareimage[height=1.3cm]{LogoCNRS}{example-fig/LogoCNRS}
+\pgfdeclareimage[height=1cm]{LogoUPSay}{example-fig/LogoUPSay}
+
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+
+
+%\AtBeginSection[]
+%{
+%  \begin{frame}
+%    \frametitle{Table of Contents}
+%    \tableofcontents[currentsection]
+%  \end{frame}
+%}
+
+
+
+% Author, Title, etc.
+
+\title[FGCM Simulation]{\large Review of the Forward Global Photometric Calibrationn\\
+{\small inspired from the DES article Burke et al. 2017}}
+
+\titlegraphic{\begin{center}\qquad\pgfuseimage{LogoCNRS}\qquad\quad\qquad\quad\pgfuseimage{LogoIJCLab}\qquad\qquad\pgfuseimage{LogoUPSay}\end{center}}
+
+\author[S. Dagoret-Campagne]{
+Sylvie Dagoret-Campagne,Marc Moniez, Martin Rodriguez Monroy, Joseph Chevalier,}
+\institute[IJCLab]{
+  IJCLab,
+  CNRS/IN2P3 \& Université Paris-Saclay,
+  Orsay, France }
+  
+  % Caution  : This is not the affiliation to be used to sign articles. 
+  % Please refer to the intranet : Bibliothèque/IST / Règles de publication
+     
+\date[IJCLab, Dec 16th 2022]{DESC PCWG, December 16th 2022}
+
+
+
+
+
+
+% The main document with a few examples
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%==================================================================================================================================
+\begin{frame}
+  \titlepage
+\end{frame}
+%==================================================================================================================================
+
+
+
+%==================================================================================================================================
+%\begin{frame}{Outline}
+%  \tableofcontents
+%\end{frame}
+%==================================================================================================================================
+
+
+% see example https://tex.stackexchange.com/questions/62902/text-column-in-array
+% Define a text column environnement
+%\usepackage{array,amsmath}
+%\newcolumntype{L}{>$l<$}
+
+%\begin{frame}
+%\begin{equation*}
+%    \begin{array}{L@{\quad}c@{{}={}}c}
+%       some text:            & x^2 & x^2 \\
+%       more thoughts:        & y^2 & y^2 \\
+%       really deep thoughts: & z^2 & z^2
+%    \end{array}
+%\end{equation*}
+%\end{frame}
+
+%=================================================================================================================================
+%\begin{frame}{Magnitude calibration of astronomical objects}
+%\begin{alertblock}{Article Burke et al. 2017, Formula (16) }
+%\begin{equation*}
+%    \begin{array}{l@{{}{}}c c@{\quad}L}
+%               m_b^{std} =   & -2.5 \log_{10}(ADU_b^{obs}) & \longrightarrow  & ADU photometric counts     \\
+%                & +  2.5 \log_{10}\left(\mathbb{I}_0^{obs}(b)\right)  &\longrightarrow  &  {\color{red}0th order transmission term} \\
+%                 & + ZPT^{AB}_{obs}  & \longrightarrow & Zero Point magnitude \\
+%                 &  +  2.5 \log_{10} 
+%	\left( 
+%	\frac{\int_0^\infty F_\nu(\lambda) \times \phi_b^{obs}(\lambda) d\lambda }{\int_0^\infty F_\nu(\lambda) \times \phi_b^{std}(\lambda) d\lambda} 
+%	\right) & \longrightarrow & {\color{blue}SED Color correction term}
+%    \end{array}
+%\end{equation*}
+%\end{alertblock}
+%{\footnotesize
+%\begin{block}{Calibration quantities for each observation:}
+%\begin{equation*}
+%\begin{array}{L@{\quad}ccc}
+%transmission integral : & \mathbb{I}_0^{obs}(b) & \equiv & \int_0^\infty S^{obs}_b(\lambda) \frac{d\lambda}{\lambda} \\
+%zero point link to AB-flux unit/CCD : & ZPT^{AB}_{obs} & \equiv & 2.5 \log_{10} \left( \frac{A \Delta T F^{AB}}{gh}\right)
+%\end{array} 
+%\end{equation*}
+%\end{block}
+%\begin{itemize}
+%\item Total observation transmission : $S_b^{obs}(\lambda) = S^{atm}(\lambda) \times S_b^{inst}(\lambda)$
+%\item Normalized passband : $\phi_b^{obs} (\lambda,t) = \frac{S_b^{obs}(\lambda,t)\frac{1}{\lambda}}{\int_0^\infty S^{obs}_b(\lambda,t) \frac{d\lambda}{\lambda}}$
+%\end{itemize}
+%}
+%\end{frame}
+%=================================================================================================================================
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Motivation}
+%https://arxiv.org/abs/1706.01542
+\begin{frame}\sectionpage\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%=================================================================================
+\begin{frame}{Motivation}
+\begin{itemize}
+\item We are attending DESC group on Photometric Corrections,
+\item We participate or wish to participate in comissioning of Rubin project in that PC field, 
+\item We may be involved or not in measuring $S^{atm}(\lambda)$ and $S^{inst}(\lambda)$, or building the star monster catalog, or other stuff on Auxtel (DIMM, Weather,...),
+\item We have science goal in DESC, PhotoZ or SN, or other,
+\item We may need to make a more obvious link between our current actions and our science goals,
+\item We may increase or prolongate our contribution further to prepare Rubin LSST project through our participation in commissioning,
+\item We would-like to understand what we concreately could do, which kind of knowledge we need to get,
+\end{itemize}
+\end{frame}
+%===============================================================================
+
+%===============================================================================
+\begin{frame}
+\begin{itemize}
+\item Propose a series of Onboarding talks open to any presenter (expert or not expert), willing to help in better understanding this PC subject, suggest actions.
+\item Goal is to learn ...
+\item Goal is to trigger interesting open discussions
+\item Goal is to clear unobvious aspects
+\item Today propose a first part on the review on article on FGCM : \href{https://arxiv.org/abs/1706.01542}{FORWARD GLOBAL PHOTOMETRIC CALIBRATION OF THE DARK ENERGY SURVEY, Burke et al. 2017}
+\item More to come in 2023, when ready, when we want or when we can.
+\end{itemize}
+\end{frame}
+%===============================================================================
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Photometric correction for standard magnitude}
+\begin{frame}\sectionpage\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%=================================================================================================================================
+\begin{frame}{Standard magnitude calibration of objects}
+\begin{alertblock}{Article Burke et al. 2017, Formula (16)}
+\begin{equation*}
+    \begin{array}{l@{{}{}}c c@{\quad}L}
+               m_b^{std} =   & -2.5 \log_{10}(ADU_b^{obs}) & \longrightarrow  & ADU photometric counts     \\
+                & +  2.5 \log_{10}\left(\frac{\mathbb{I}_0^{obs}(b)}{\mathbb{I}_0^{std}(b)}\right)  &\longrightarrow  &  {\color{red}0th order transmission term} \\
+                 & + ZPT^{AB}_{obs} + 2.5 \log_{10}\left(\mathbb{I}_0^{std}(b)\right) & \longrightarrow & Zero Point magnitude \\
+                 &  +  2.5 \log_{10} 
+	\left( 
+	\frac{\int_0^\infty F_\nu(\lambda) \times \phi_b^{obs}(\lambda) d\lambda }{\int_0^\infty F_\nu(\lambda) \times \phi_b^{std}(\lambda) d\lambda} 
+	\right) & \longrightarrow & {\color{blue}SED Color correction term}
+    \end{array}
+\end{equation*}
+\end{alertblock}
+{\footnotesize
+\begin{block}{Calibration quantities for each observation:}
+\begin{equation*}
+\begin{array}{L@{\quad}ccc}
+transmission integral : & \mathbb{I}_0^{obs}(b) & \equiv & \int_0^\infty S^{obs}_b(\lambda) \frac{d\lambda}{\lambda} \\
+zero point link to AB-flux unit/CCD : & ZPT^{AB}_{obs} & \equiv & 2.5 \log_{10} \left( \frac{A \Delta T F^{AB}}{gh}\right)
+\end{array} 
+\end{equation*}
+\end{block}
+\begin{itemize}
+\item Total transmission : $S_b^{obs}(\lambda) = S^{atm-obs}(\lambda) \times S_b^{inst-obs}(\lambda)$
+\item Normalized passband : $\phi_b^{c=obs,std} (\lambda,t) = \frac{S_b^{c}(\lambda,t)\frac{1}{\lambda}}{\int_0^\infty S^{c}_b(\lambda,t) \frac{d\lambda}{\lambda}}$
+\end{itemize}
+}
+\end{frame}
+%========================================================================================================================
+
+
+
+
+% Slide 2
+%=================================================================================================================================
+\begin{frame}{Interpretation of correction terms to $m_{std}$}
+{\footnotesize
+The standard transmission is chosen apriory thus $\mathbb{I}_0^{std}(b)$ is calculated
+}
+{\footnotesize
+\begin{tabular}{llll} \hline
+a)&0th order corr term : & relative attenuation in $b$ & $2.5 \log_{10}\left(\frac{\mathbb{I}_0^{obs}(b)}{\mathbb{I}_0^{std}(b)}\right)$ \\
+b)&1st order corr term : & SED color correction& $ 2.5 \log_{10} 
+	\left( 
+	\frac{\int_0^\infty F_\nu(\lambda) \times \phi_b^{obs}(\lambda) d\lambda }{\int_0^\infty F_\nu(\lambda) \times \phi_b^{std}(\lambda) d\lambda} 
+	\right)$ \\
+c)&constant term/CCD/exp: & Zero point to measure & $ZPT^{AB}_{obs}\equiv  2.5 \log_{10} \left( \frac{A \Delta T F^{AB}}{g_{el}h}\right)$ \\
+d)&constant term/band : & Calculated & $2.5 \log_{10}\left(\mathbb{I}_0^{std}(b)\right)$ \\  \hline
+\end{tabular}
+
+
+\begin{itemize}
+\item a) requires atmospheric transparency either by direct measurement with Auxtel or indirectly by fitting air-transparency in LSST-FGCM atmospheric model or combining both,
+\item b) requires atmospheric transparency as well:
+\begin{itemize}
+\item stars : requires the magnitude color type of the stars 
+\item galaxies and other : requires to classify by colors (by example for PhotoZ
+\end{itemize}
+\item c) Set the flux scale unit per CCD per exposure and is band independent.
+\begin{itemize}
+\item absorbs grey component common to all bands, (ex clouds, ageing,...)
+\item measured with the contraints provided by the calibration star in the Monster Catalog
+\end{itemize}
+\end{itemize}
+}
+
+\end{frame}
+%========================================================================================================================
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Order 0 band correction term}
+\begin{frame}\sectionpage\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%========================================================================================================================
+\begin{frame}{Relative ratio of integrals}
+Focusing on atmosphere component variations defined as
+$\theta^{atm}= PWV, O_3, aerosols$
+\begin{alertblock}{}
+\begin{equation*}
+\left(\frac{\mathbb{I}_0^{obs}(b,z_{obs},\theta_{obs}^{atm})}{\mathbb{I}_0^{std}(b,z_{std},\theta_{std}^{atm})}\right) =
+\underbrace{\left(\frac{\mathbb{I}_0^{obs}(b,z_{obs},\theta_{obs}^{atm})}{\mathbb{I}_0^{std}(b,z_{obs},\theta_{std}^{atm})}\right)}_{1:ratio\;at \; same \; z_{obs}\; \& \; \neq \; \theta^{atm}} \times \underbrace{\left(\frac{\mathbb{I}_0^{std}(b,z_{obs},\theta_{std}^{atm})}{\mathbb{I}_0^{std}(b,z_{std},\theta_{std}^{atm})}\right)}_{2:calculable \; ratio \;at \; z_{obs}\neq z_{std} }
+\end{equation*}
+\end{alertblock}
+\begin{itemize}
+\item 1 : $\left(\frac{\mathbb{I}_0^{obs}(b,z_{obs},\theta_{obs}^{atm})}{\mathbb{I}_0^{std}(b,z_{obs},\theta_{std}^{atm})}\right)$ : numerator obtained by the {\bf measurement of atmospheric transmission for each exposure}, denominator calculated at observation $z_{obs}$ (small corrections at ~10 mmag level),
+\item 2 : $\left(\frac{\mathbb{I}_0^{std}(b,z_{obs},\theta_{std}^{atm})}{\mathbb{I}_0^{std}(b,z_{std},\theta_{std}^{atm})}\right)$ : calculable ratio assuming knowledge of atmospheric model (large corrections at ~100 mmag level). 
+\end{itemize}
+
+
+\end{frame}
+%========================================================================================================================
+
+
+
+
+%========================================================================================================================
+%\begin{frame}{Order 0 magnitude corrections at different airmass}
+%\begin{itemize}
+%\item standard transmission, standard atmosphere at airmass $z=z_{std}$
+%\item observed transmission, standard atmosphere at airmass $z_{obs} \ne z_{std}$
+%\end{itemize}
+
+%\begin{columns}
+%\begin{column}{0.6\textwidth}
+%\includegraphics[width=8cm,angle=0]{figs/PCCorr/fig1_PCCorrOrder0th_airmass.png}
+%\end{column}
+%\begin{column}{0.4\textwidth}  %%<--- here
+%\centering
+%\includegraphics[width=4cm,angle=0]{figs/PCCorr/fig2_PCCorrOrder0th_airmass.png}
+%\end{column}
+%\end{columns}  
+%\end{frame}
+%========================================================================================================================
+
+%========================================================================================================================
+\begin{frame}{Order 0 corrections at different airmass}
+
+\begin{tabular}{cc}
+\includegraphics[width=6cm,height=6.5cm,angle=0]{figs/PCCorr/fig1_PCCorrOrder0th_airmass.png} &
+\includegraphics[width=5.5cm,height=4cm,angle=0]{figs/PCCorr/fig2_PCCorrOrder0th_airmass.png}
+\end{tabular}
+\end{frame}
+%========================================================================================================================
+
+%========================================================================================================================
+\begin{frame}{Order 0 corrections at different PWV}
+
+\begin{tabular}{cc}
+\includegraphics[width=6cm,height=6.5cm,angle=0]{figs/PCCorr/fig1_PCCorrOrder0th_PWV.png} &
+\includegraphics[width=5.5cm,height=6cm,angle=0]{figs/PCCorr/fig2_PCCorrOrder0th_PWV.png}
+\end{tabular}
+\end{frame}
+%========================================================================================================================
+
+
+%========================================================================================================================
+\begin{frame}{Order 0 corrections at different VAOD}
+
+\begin{tabular}{cc}
+\includegraphics[width=6cm,height=6.5cm,angle=0]{figs/PCCorr/fig1_PCCorrOrder0th_aer.png} &
+\includegraphics[width=5.5cm,height=6cm,angle=0]{figs/PCCorr/fig2_PCCorrOrder0th_aer.png}
+\end{tabular}
+\end{frame}
+%========================================================================================================================
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Order 1 Color correction term}
+\begin{frame}\sectionpage\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%=====================================================================================
+\begin{frame}{Effective normalized passband}
+\begin{tabular}{cc}
+\includegraphics[width=5.5cm,height=3.5cm,angle=0]{figs/PCCorr/fig1_PCCorrOrder1_airmass.png}
+&
+\includegraphics[width=5.5cm,height=3.5cm,angle=0]{figs/PCCorr/fig2_PCCorrOrder1_PWV.png} \\
+ $\boxed{\phi_b^{c=obs,std} (\lambda,t) = \frac{S_b^{c}(\lambda,t)\frac{1}{\lambda}}{\int_0^\infty S^{c}_b(\lambda,t) \frac{d\lambda}{\lambda}}}$ & \includegraphics[width=5.5cm,height=3.5cm,angle=0]{figs/PCCorr/fig3_PCCorrOrder1_aer.png}
+\end{tabular}
+\end{frame}
+%=======================================================================================
+
+%==========================================================================================================================
+\begin{frame}{Transmission moments definitions}
+\begin{block}{Transmission moments definitions}
+
+\begin{eqnarray}
+\mathbb{I}_0^i(b) & = & \int_0^{\infty} S_b^i(\lambda) \frac{d\lambda}{\lambda} \\
+\mathbb{I}_1^i(b) & = & \int_0^{\infty} (\lambda-\lambda_b) S_b^i(\lambda) \frac{d\lambda}{\lambda} \\
+ \mathbb{I}_2^i(b) & = &\int_0^{\infty} (\lambda-\lambda_b)^2 S_b^i(\lambda) \frac{d\lambda}{\lambda} \\
+\mathbb{I}^i_{10}(b)  & = &\frac{\mathbb{I}^i_1(b)}{\mathbb{I}^i_0(b)} \\
+\mathbb{I}^i_{20}(b) & = & \frac{\mathbb{I}^i_2(b)}{\mathbb{I}^i_0(b)} 
+\end{eqnarray}
+
+with $i=obs$ or $i=std$
+\end{block}
+\end{frame}
+%==========================================================================================================================
+
+
+
+
+
+
+\subsection{Approximation for SED shape}
+%==========================================================================================================================
+\begin{frame}{Approximation for SED shape} 
+\begin{exampleblock}{SED approximation as Taylor expansion (see FGCM DES article)}
+\begin{eqnarray}
+F_\nu(\lambda) & = & F_\nu(\lambda_b) \left(1 + f^\prime(\lambda_b)(\lambda-\lambda_b) + \frac{f^{\prime\prime}(\lambda_b)}{2}(\lambda-\lambda_b)^2 + \cdots \right) \\
+f_\nu^\prime(\lambda) & \equiv & \frac{1}{F_\nu(\lambda)}\frac{dF_\nu(\lambda)}{d\lambda} \qquad \qquad \qquad
+f_\nu^{\prime\prime}(\lambda)  \equiv  \frac{1}{F_\nu(\lambda)}\frac{d^2F_\nu(\lambda)}{d\lambda^2} \nonumber \\
+\lambda_b & \equiv & \frac{\int_0^{\infty} \lambda \times S_b^{inst}(\lambda) \frac{d\lambda}{\lambda}}
+{\int_0^{\infty} S_b^{inst}(\lambda) \frac{d\lambda}{\lambda}}
+\end{eqnarray}
+
+\begin{itemize}
+\item $S_b^{obs}(\lambda) = S_b^{inst}(\lambda,t,x,y) \times S^{atm}(\lambda,t,alt,az)$
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+%==========================================================================================================================
+
+
+\subsection{Color correction term}
+%==========================================================================================================================
+\begin{frame}{Color correction term}
+\begin{alertblock}{Color correction term}
+\begin{eqnarray}
+\Delta m_b (color) & \equiv  & 2.5 \log_{10} 
+	\left( 
+	\frac{\int_0^\infty F_\nu(\lambda) \times \phi_b^{obs}(\lambda) d\lambda }{\int_0^\infty F_\nu(\lambda) \times \phi_b^{std}(\lambda) d\lambda} 
+	\right)  \nonumber \\
+          & \equiv  &  2.5 \log_{10}\left( 
+\frac{1 + f_\nu^\prime(\lambda_b)\mathbb{I}^{obs}_{10}(b)  +\frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\mathbb{I}_{20}^{obs}(b)}
+{1 + f_\nu^\prime(\lambda_b)\mathbb{I}^{std}_{10}(b)  +\frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\mathbb{I}_{20}^{std}(b)}\right) \nonumber \\
+& \simeq &  + 1.087\left( f_\nu^\prime(\lambda_b) \Delta \mathbb{I}_{10}(b) +
+          \frac{f_\nu^{\prime\prime}(\lambda_b)}{2}\Delta \mathbb{I}_{20}(b)  \right) \nonumber
+%          & & \left. - \left. \frac{1}{2}\left( f_\nu^\prime(\lambda_b) \Delta \mathbb{I}_{10}(b) \right)^2  \right) \nonumber
+\end{eqnarray}
+\end{alertblock}
+
+\begin{block}{Moments difference definition}
+\begin{eqnarray}
+\Delta \mathbb{I}_{10}(b) & = &  \mathbb{I}_{10}^{obs}(b)  -  \mathbb{I}_{10}^{std}(b) \\
+\Delta \mathbb{I}_{20}(b) & = &   \mathbb{I}_{20}^{obs}(b)  -  \mathbb{I}_{20}^{std}(b) 
+\end{eqnarray}
+\end{block}
+\end{frame}
+%==========================================================================================================================
+
+
+
+%==========================================================================
+\begin{frame}{Moments difference definition $\Delta \mathbb{I}_{10}(b)$}
+\begin{tabular}{cc}
+\includegraphics[width=5.5cm,height=3.5cm,angle=0]{figs/PCCorr/fig1_II10diff_airmass.png}
+&
+\includegraphics[width=5.5cm,height=3.5cm,angle=0]{figs/PCCorr/fig2_II10diff_PWV.png} \\
+
+ $\boxed{\Delta \mathbb{I}_{10}(b)  =   \mathbb{I}_{10}^{obs}(b)  -  \mathbb{I}_{10}^{std}(b)}$ & \includegraphics[width=5.5cm,height=3.5cm,angle=0]{figs/PCCorr/fig3_II10diff_aer.png}
+\end{tabular}
+\end{frame}
+%==========================================================================
+
+
+%==========================================================================
+\begin{frame}{Moments difference definition $\Delta \mathbb{I}_{20}(b)$}
+\begin{tabular}{cc}
+\includegraphics[width=5.5cm,height=3.5cm,angle=0]{figs/PCCorr/fig1_II20diff_airmass.png}
+&
+\includegraphics[width=5.5cm,height=3.5cm,angle=0]{figs/PCCorr/fig2_II20diff_PWV.png} \\
+
+ $\boxed{\Delta \mathbb{I}_{20}(b)  =   \mathbb{I}_{20}^{obs}(b)  -  \mathbb{I}_{20}^{std}(b)}$ & \includegraphics[width=5.5cm,height=3.5cm,angle=0]{figs/PCCorr/fig3_II20diff_aer.png}
+\end{tabular}
+\end{frame}
+%==========================================================================
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Next topics for next year}
+\begin{frame}\sectionpage\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{frame}{Next subjects to come in 2023}
+\begin{itemize}
+\item Photometric Color corrections on stars or objects of know SED (not redshifted)
+\item Photometric Color corrections on redshifted objects
+\item For what purpose the Monster catalog is needed ?
+\item Measurement of zero points at Rubin-LSST ?
+\item Instrument corrections $S^{inst}(\lambda,t)$ ?
+\item Photometric Aperture errors \& Rubin Cadence and Observing Conditions ?
+\item DM calibration pipeline : what are the data-products required, what are the task/algorithm needed, and where in the whole pipeline. 
+\item What can be done \& checked during (Auxtel) commissioning ?
+\item What else ?
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Rubin-LSST calibration plan}
+\includegraphics[width=0.95\paperwidth]{figs/calib/LSSTCalibrationPlan_v2.png}
+\end{frame}
+
+
+
+
+%==========================================================================================================================
+\begin{frame}
+\begin{center}
+{\usebeamerfont{frametitle}
+
+\LARGE \alert{End of part 1}}
+
+\end{center}
+
+\end{frame}
+%==========================================================================================================================
+
+
+
+
+
+
+
+
+
+
+ 
+\end{document}
+
+
